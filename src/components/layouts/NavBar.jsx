@@ -2,18 +2,19 @@ import { paths } from "@/utils/paths";
 import Link from "next/link";
 import React from "react";
 import icons from "@/utils/icons";
+import { Logo } from "../logo";
 
 const { RiSearch2Line } = icons;
 
 const NavBar = () => {
+  const [isLogin, setIsLogin] = React.useState(true);
+
   return (
-    <div className="border-b border-gray-300 w-full">
+    <div className="border-b border-gray-300 w-full bg-white">
       <div className="flex items-center justify-between max-w-[1200px] w-full mx-auto p-5">
         <div className="flex items-center gap-10">
-          <Link href={paths.HOME}>
-            <span className="font-semibold text-2xl">{`>_ Lemon Code`}</span>
-          </Link>
-          <div className="flex items-center border border-gray-300 rounded-md h-9">
+          <Logo />
+          <div className="flex items-center border border-gray-300 rounded-md h-10">
             <input
               type="text"
               className="h-full rounded-l-md outline-none px-3"
@@ -24,18 +25,25 @@ const NavBar = () => {
             </button>
           </div>
         </div>
-        <div className="flex items-center gap-5">
-          <Link href={paths.CREATE}>
-            <button className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-md">
-              Create
-            </button>
-          </Link>
-          <Link href={paths.LOGIN}>
-            <span className="text-gray-800 hover:text-green-600 hover:underline">
-              Login
-            </span>
-          </Link>
-        </div>
+        {isLogin ? (
+          <div className="flex items-center gap-5">
+            <Link href={paths.CREATE}>
+              <button className="h-10 px-5 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500 hover:text-white duration-300 transition-all ease-in-out">
+                Create Post
+              </button>
+            </Link>
+            <span>Avatar</span>
+          </div>
+        ) : (
+          <div className="flex items-center gap-5">
+            <Link href={paths.LOGIN}>Login</Link>
+            <Link href={paths.REGISTER}>
+              <button className="h-10 px-5 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500 hover:text-white duration-300 transition-all ease-in-out">
+                Create Account
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
