@@ -16,15 +16,21 @@ const {
   RiEyeFill,
 } = icons;
 
-const login = () => {
+const register = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [passwordConfirm, setPasswordConfirm] = React.useState("");
 
   const handleLogin = () => {
-    if (!email || !password) {
+    if (!email || !password || !passwordConfirm) {
       return toast.error("Please fill all the fields");
     }
+
+    if (password !== passwordConfirm) {
+      return toast.error("Passwords do not match");
+    }
+
     toast.success("Login success");
   };
 
@@ -48,14 +54,14 @@ const login = () => {
               </div>
               <div className="relative after:absolute after:w-full after:h-0.5 after:bg-gray-300 after:top-1/2 after:left-0 after:rounded-md my-5">
                 <span className="text-xs bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-gray-500">
-                  Have a password? Continue with your email address
+                  Or create an account with email
                 </span>
               </div>
 
               <div className="mt-10 flex flex-col gap-3">
                 <div>
                   <label htmlFor="email" className="text-gray-600 text-sm mb-4">
-                    Email address <span className="text-red-500">*</span>
+                    Email <span className="text-red-500">*</span>
                   </label>
                   <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
                     <RiMailFill className="text-2xl" />
@@ -66,6 +72,7 @@ const login = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="w-full outline-none"
+                      placeholder="Email address"
                     />
                   </div>
                 </div>
@@ -81,10 +88,11 @@ const login = () => {
                     <input
                       type={showPassword ? "text" : "password"}
                       name="password"
-                      id="email"
+                      id="password"
                       className="w-full outline-none"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Password"
                     />
                     <button
                       type="button"
@@ -98,42 +106,53 @@ const login = () => {
                       )}
                     </button>
                   </div>
-
-                  <div className="flex items-center justify-between mt-3">
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        name="remember"
-                        id="remember"
-                        className="border border-gray-300 rounded-md px-3 py-2"
-                      />
-                      <label
-                        htmlFor="remember"
-                        className="text-gray-600 text-sm"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-                    <a href="#" className="text-red-500 text-sm">
-                      Forgot password?
-                    </a>
+                </div>
+                <div>
+                  <label
+                    htmlFor="passwordConfirm"
+                    className="text-gray-600 text-sm mb-4"
+                  >
+                    Confirm Password <span className="text-red-500">*</span>
+                  </label>
+                  <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
+                    <RiLock2Fill className="text-2xl" />
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="passwordConfirm"
+                      id="passwordConfirm"
+                      className="w-full outline-none"
+                      value={passwordConfirm}
+                      onChange={(e) => setPasswordConfirm(e.target.value)}
+                      placeholder="Confirm Password"
+                    />
+                    <button
+                      type="button"
+                      className="text-gray-500 outline-none focus:outline-none"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <RiEyeFill className="text-xl" />
+                      ) : (
+                        <RiEyeOffFill className="text-xl" />
+                      )}
+                    </button>
                   </div>
                 </div>
                 <button
                   className="bg-green-500 w-full py-2 rounded-md text-white hover:bg-green-600 mt-5"
                   onClick={() => handleLogin()}
                 >
-                  Login
+                  Register
                 </button>
 
                 <div className="relative after:absolute after:w-full after:h-0.5 after:bg-gray-300 after:top-1/2 after:left-0 after:rounded-md my-5">
                   <span className="text-xs bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-gray-500">
-                    Don&apos;t have an account?{" "}
+                    Already have an account?{" "}
                     <Link
-                      href={paths.REGISTER}
+                      href={paths.LOGIN}
                       className="hover:text-green-500 hover:underline"
                     >
-                      Create account
+                      Login now
                     </Link>
                   </span>
                 </div>
@@ -146,4 +165,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default register;
