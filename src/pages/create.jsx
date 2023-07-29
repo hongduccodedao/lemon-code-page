@@ -1,11 +1,15 @@
+import { Editor } from "@/components/edtior";
 import { Logo } from "@/components/logo";
 import { SEO } from "@/components/seo";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const create = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageUploaded, setIsImageUploaded] = useState(false);
+  const [editorValue, setEditorValue] = useState("");
+  const [title, setTitle] = useState("");
 
   const displayImage = (e) => {
     const fileInput = e.target;
@@ -21,8 +25,19 @@ const create = () => {
     setIsImageUploaded(false);
   };
 
-  const handleUpFile = (e) => {
-    console.log(e.target.files[0]);
+  const handleEditorChange = (value) => {
+    setEditorValue(value);
+  };
+
+  const handlePublic = () => {
+    const content = editorValue;
+
+    if (!title) {
+      return toast.error("Please enter title");
+    }
+    if (!content) {
+      return toast.error("Please enter content");
+    }
   };
 
   return (
@@ -73,6 +88,20 @@ const create = () => {
                 )}
               </div>
             </div>
+            <input
+              type="text"
+              className="my-4 w-full outline-none text-6xl placeholder:text-gray-600 font-bold"
+              placeholder="New post title here..."
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <Editor value={editorValue} onChange={handleEditorChange} />
+            <button
+              className="cursor-pointer inline-block px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600 transition-all duration-300 ease-in-out mt-5"
+              onClick={handlePublic}
+            >
+              Public
+            </button>
           </div>
         </div>
       </main>
