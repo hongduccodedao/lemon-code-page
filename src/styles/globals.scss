@@ -7,3 +7,11 @@
     @apply bg-gray-100;
   }
 }
+
+@layer components {
+}
+.rti--container {
+  border: 0 !important;
+  --rti-main: 0 !important;
+  --rti--tag: "#DCFCE7" !important;
+}

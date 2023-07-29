@@ -4,12 +4,15 @@ import { SEO } from "@/components/seo";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { TagsInput } from "react-tag-input-component";
 
 const create = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [editorValue, setEditorValue] = useState("");
   const [title, setTitle] = useState("");
+
+  const [tags, setTags] = useState([]);
 
   const displayImage = (e) => {
     const fileInput = e.target;
@@ -95,6 +98,17 @@ const create = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
+            <TagsInput
+              value={tags}
+              onChange={setTags}
+              name="tags"
+              placeHolder="Add tags..."
+              className="w-full my-2"
+            />
+            <small className="py-2">
+              <span className="text-gray-400">Note:</span> Press{" "}
+              <span className="font-bold">Enter</span> to add a tag
+            </small>
             <Editor value={editorValue} onChange={handleEditorChange} />
             <button
               className="cursor-pointer inline-block px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600 transition-all duration-300 ease-in-out mt-5"
