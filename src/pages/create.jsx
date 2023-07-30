@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { Editor } from "@/components/edtior";
 import { Logo } from "@/components/logo";
 import { SEO } from "@/components/seo";
