@@ -8,8 +8,6 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import { useState } from "react";
-import CodeBlock from "@/components/codeBlock";
 import { SEO } from "@/components/seo";
 
 const PostDetailPage = () => {
@@ -21,11 +19,14 @@ const PostDetailPage = () => {
     queryKey: "postDetail",
     queryFn: () => getPostBySlug(slug),
   });
-  console.log("🚀 ~ PostDetailPage ~ data:", data);
 
   return (
     <>
-      <SEO title={data?.title} description={data?.content} image={data?.thumbnail} />
+      <SEO
+        title={data?.title}
+        description={data?.content}
+        image={data?.thumbnail}
+      />
       <main>
         <LayoutMain>
           <div className="max-w-[1200px] mx-auto mt-5 flex gap-2">
@@ -99,5 +100,13 @@ const PostDetailPage = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ params }) {
+  const post = await getPostBySlug(params.slug);
+
+  return {
+    props: { post },
+  };
+}
 
 export default PostDetailPage;
