@@ -1,4 +1,4 @@
-import { getPosts } from "@/apis/post";
+import { apiGetPosts } from "@/apis/post";
 import { LayoutMain } from "@/components/layouts";
 import { Loading } from "@/components/loadings";
 import { PostCard } from "@/components/postCard";
@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 export default function Home() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: "posts",
-    queryFn: () => getPosts(),
+    queryFn: () => apiGetPosts(),
   });
 
   return (
