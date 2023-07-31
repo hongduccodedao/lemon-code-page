@@ -10,15 +10,29 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { SEO } from "@/components/seo";
 
-const PostDetailPage = () => {
+export const getStaticPaths = async () => {
+  const posts = await getPostBySlug();
+  const paths = posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+  return { paths, fallback: true };
+};
+
+export const getStaticProps = async ({ params }) => {
+  const post = await getPostBySlug(params.slug);
+  return { props: { post }, revalidate: 1 };
+};
+
+const PostDetailPage = ({ post }) => {
   const router = useRouter();
 
-  const slug = router.query.slug;
-
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: "postDetail",
-    queryFn: () => getPostBySlug(slug),
-  });
+  const { data } = useQuery(
+    ["post", router.query.slug],
+    () => getPostBySlug(router.query.slug),
+    {
+      initialData: post,
+    }
+  );
 
   return (
     <>
@@ -100,13 +114,5 @@ const PostDetailPage = () => {
     </>
   );
 };
-
-export async function getServerSideProps({ params }) {
-  const post = await getPostBySlug(params.slug);
-
-  return {
-    props: { post },
-  };
-}
 
 export default PostDetailPage;
