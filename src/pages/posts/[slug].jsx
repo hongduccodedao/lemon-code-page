@@ -28,7 +28,8 @@ const PostDetailPage = ({ post }) => {
   //   ["post", router.query.slug],
   //   () => apiGetPostBySlug(router.query.slug),
     
-  // );
+  //   );
+  //   console.log("🚀 ~ PostDetailPage ~ data:", data)
 
 
   return (
