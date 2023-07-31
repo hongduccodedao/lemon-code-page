@@ -25,7 +25,7 @@ const PostDetailPage = () => {
 
   return (
     <>
-      <SEO title={data?.title} description={data?.description} image={data?.thumbnail} />
+      <SEO title={data?.title} description={data?.content} image={data?.thumbnail} />
       <main>
         <LayoutMain>
           <div className="max-w-[1200px] mx-auto mt-5 flex gap-2">
