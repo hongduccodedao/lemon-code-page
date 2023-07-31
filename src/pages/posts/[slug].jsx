@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import { getPostBySlug } from "@/apis/post";
+import { getPostBySlug, getPosts } from "@/apis/post";
 import { LayoutMain } from "@/components/layouts";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
@@ -10,18 +10,25 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { SEO } from "@/components/seo";
 
-export const getStaticPaths = async () => {
-  const posts = await getPostBySlug();
-  const paths = posts.map((post) => ({
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const paths = posts?.map((post) => ({
     params: { slug: post.slug },
   }));
-  return { paths, fallback: true };
-};
 
-export const getStaticProps = async ({ params }) => {
+  return { paths, fallback: true };
+}
+
+export async function getStaticProps({ params }) {
   const post = await getPostBySlug(params.slug);
-  return { props: { post }, revalidate: 1 };
-};
+
+  return {
+    props: {
+      post,
+    },
+    revalidate: 1,
+  };
+}
 
 const PostDetailPage = ({ post }) => {
   const router = useRouter();
