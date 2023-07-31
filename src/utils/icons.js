@@ -6,6 +6,9 @@ import {
   RiLock2Fill,
   RiEyeFill,
   RiEyeOffFill,
+  RiBookmarkLine,
+  RiHeartAddLine,
+  RiChat1Line,
 } from "react-icons/ri";
 
 const icons = {
@@ -16,6 +19,9 @@ const icons = {
   RiLock2Fill,
   RiEyeFill,
   RiEyeOffFill,
+  RiBookmarkLine,
+  RiHeartAddLine,
+  RiChat1Line,
 };
 
 export default icons;

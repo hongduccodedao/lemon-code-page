@@ -12,7 +12,7 @@ const create = () => {
   const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [editorValue, setEditorValue] = useState("");
   const [title, setTitle] = useState("");
-
+  
   const [tags, setTags] = useState([]);
 
   const displayImage = (e) => {
@@ -43,6 +43,7 @@ const create = () => {
       return toast.error("Please enter content");
     }
   };
+  console.log("🚀 ~ create ~ editorValue:", editorValue)
 
   return (
     <>
