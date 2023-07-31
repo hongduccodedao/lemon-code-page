@@ -17,7 +17,7 @@ const PostCard = ({ post }) => {
             src={post.thumbnail}
             alt="thumbnail"
             layout="fill"
-            className="rounded-t-md"
+            className="rounded-t-md object-cover object-center"
           />
         </div>
       )}
