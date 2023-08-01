@@ -12,7 +12,6 @@ import { SEO } from "@/components/seo";
 
 export async function getServerSideProps({ params }) {
   const response = await apiGetPostBySlug(params.slug);
-  console.log("🚀 ~ getServerSideProps ~ response:", response);
 
   return {
     props: {

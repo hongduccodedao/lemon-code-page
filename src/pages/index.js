@@ -20,7 +20,7 @@ export default function Home() {
           {isLoading && <Loading />}
           {isError && <p>{error.message}</p>}
           <div className="flex flex-col gap-5">
-            {data && data.map((post) => <PostCard key={post.id} post={post} />)}
+            {data && data.map((post) => <PostCard key={post._id} post={post} />)}
           </div>
         </LayoutMain>
       </main>
