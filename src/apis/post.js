@@ -1,11 +1,13 @@
-import axios from "axios";
+import axios from "../axios";
 
 export const apiGetPosts = async () => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/posts`
+      `${process.env.NEXT_PUBLIC_API_URL}/post/getAll`, {
+        withCredentials: true
+      }
     );
-    if (response.status === 200) {
+    if (response.err == 0) {
       return response.data;
     }
     return [];
@@ -16,13 +18,31 @@ export const apiGetPosts = async () => {
 
 export const apiGetPostBySlug = async (slug) => {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/post/${slug}`);
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`
+    );
     if (response.status === 200) {
       return response.data;
     }
     return {};
   } catch (error) {
     console.log("🚀 ~ apiGetPostBySlug ~ error:", error);
+    return {};
+  }
+};
+
+export const apiCreatePost = async (data) => {
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/posts`,
+      data
+    );
+    if (response.status === 201) {
+      return response.data;
+    }
+    return {};
+  } catch (error) {
+    console.log("🚀 ~ apiCreatePost ~ error:", error);
     return {};
   }
 };

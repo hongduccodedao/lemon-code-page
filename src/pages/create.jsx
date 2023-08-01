@@ -6,13 +6,16 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { TagsInput } from "react-tag-input-component";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiCreatePost } from "@/apis/post";
+import axios from "axios";
 
 const create = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [editorValue, setEditorValue] = useState("");
   const [title, setTitle] = useState("");
-  
+
   const [tags, setTags] = useState([]);
 
   const displayImage = (e) => {
@@ -33,7 +36,7 @@ const create = () => {
     setEditorValue(value);
   };
 
-  const handlePublic = () => {
+  const handlePublic = async () => {
     const content = editorValue;
 
     if (!title) {
@@ -42,8 +45,17 @@ const create = () => {
     if (!content) {
       return toast.error("Please enter content");
     }
+
+    const data = {
+      title,
+      content,
+      tags,
+    };
+    console.log("🚀 ~ handlePublic ~ data:", data)
+
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/post`, data);
+    console.log("🚀 ~ handlePublic ~ res:", res);
   };
-  console.log("🚀 ~ create ~ editorValue:", editorValue)
 
   return (
     <>
