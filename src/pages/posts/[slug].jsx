@@ -23,18 +23,18 @@ export async function getServerSideProps({ params }) {
 const PostDetailPage = ({ post }) => {
   // const router = useRouter();
 
+  // console.log("🚀 ~ PostDetailPage ~ router:", router.query.slug);
+
   // const { data } = useQuery(
   //   ["post", router.query.slug],
   //   () => apiGetPostBySlug(router.query.slug),
-    
-  //   );
-  //   console.log("🚀 ~ PostDetailPage ~ data:", data)
 
+  //   );
 
   return (
     <>
       <SEO
-        title={post?.title}
+        title={`${post?.title} | Lemon Code`}
         description={post?.content}
         image={post?.thumbnail}
       />
@@ -43,14 +43,16 @@ const PostDetailPage = ({ post }) => {
           <div className="max-w-[1200px] mx-auto mt-5 flex gap-2">
             <div className="flex bg-red-50">like</div>
             <div className="bg-white rounded-lg flex-6">
-              <div className="relative w-full h-72">
-                <Image
-                  src={post?.thumbnail}
-                  alt="thumbnail"
-                  layout="fill"
-                  className="rounded-t-lg object-cover object-center"
-                />
-              </div>
+              {post?.thumbnail && (
+                <div className="relative w-full h-72">
+                  <Image
+                    src={post?.thumbnail}
+                    alt="thumbnail"
+                    layout="fill"
+                    className="rounded-t-lg object-cover object-center"
+                  />
+                </div>
+              )}
               <div className="px-6 py-4">
                 <div className="flex items-center gap-3">
                   <div className="relative w-8 h-8">

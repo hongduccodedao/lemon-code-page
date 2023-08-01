@@ -19,9 +19,9 @@ export const apiGetPosts = async () => {
 export const apiGetPostBySlug = async (slug) => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`
+      `${process.env.NEXT_PUBLIC_API_URL}/post/${slug}`
     );
-    if (response.status === 200) {
+    if (response.err === 0) {
       return response.data;
     }
     return {};

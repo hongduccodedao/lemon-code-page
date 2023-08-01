@@ -6,6 +6,8 @@ import { LayoutMain } from "@/components/layouts";
 import { toast } from "react-toastify";
 import { paths } from "@/utils/paths";
 import Link from "next/link";
+import axios from "axios";
+import * as apis from "@/apis";
 
 const {
   RiGoogleFill,
@@ -21,11 +23,39 @@ const login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       return toast.error("Please fill all the fields");
     }
-    toast.success("Login success");
+
+    email.trim();
+    password.trim();
+
+    const response = await apis.apiLoginWithEmail({
+      email,
+      password,
+    });
+    if (response.err === 0) {
+      toast.success("Login successfully");
+      setEmail("");
+      setPassword("");
+    } else {
+      toast.error(response);
+    }
+  };
+
+  const handleLoginWithGoogle = async () => {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/google`
+    );
+    console.log("🚀 ~ handleLoginWithGoogle ~ response:", response);
+  };
+
+  const handleLoginWithGithub = async () => {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/github`
+    );
+    console.log("🚀 ~ handleLoginWithGithub ~ response:", response);
   };
 
   return (
@@ -39,10 +69,16 @@ const login = () => {
                 Welcome to Lemon Code
               </h1>
               <div className="flex flex-col gap-3">
-                <button className="flex items-center gap-3 justify-center bg-red-500 w-full py-2 rounded-md text-white hover:bg-red-600">
+                <button
+                  className="flex items-center gap-3 justify-center bg-red-500 w-full py-2 rounded-md text-white hover:bg-red-600"
+                  onClick={() => handleLoginWithGoogle()}
+                >
                   <RiGoogleFill className="text-2xl" /> Login with Google
                 </button>
-                <button className="flex items-center gap-3 justify-center bg-neutral-800 w-full py-2 rounded-md text-white hover:bg-neutral-900">
+                <button
+                  className="flex items-center gap-3 justify-center bg-neutral-800 w-full py-2 rounded-md text-white hover:bg-neutral-900"
+                  onClick={() => handleLoginWithGithub()}
+                >
                   <RiGithubFill className="text-2xl" /> Login with Github
                 </button>
               </div>
@@ -81,7 +117,7 @@ const login = () => {
                     <input
                       type={showPassword ? "text" : "password"}
                       name="password"
-                      id="email"
+                      id="password"
                       className="w-full outline-none"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
