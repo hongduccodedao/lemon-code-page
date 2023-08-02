@@ -8,6 +8,8 @@ import { paths } from "@/utils/paths";
 import Link from "next/link";
 import axios from "axios";
 import * as apis from "@/apis";
+import { useDispatch, useSelector } from "react-redux";
+import { handleLoginRedux } from "@/store/user/userSlice";
 
 const {
   RiGoogleFill,
@@ -19,6 +21,8 @@ const {
 } = icons;
 
 const login = () => {
+  const dispatch = useDispatch();
+  const { isLogged } = useSelector((state) => state.user);
   const [showPassword, setShowPassword] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -39,6 +43,13 @@ const login = () => {
       toast.success("Login successfully");
       setEmail("");
       setPassword("");
+      console.log("🚀 ~ handleLogin ~ response:", response);
+      dispatch(
+        handleLoginRedux({
+          isLogged: true,
+          token: response.access_token,
+        }),
+      );
     } else {
       toast.error(response);
     }
@@ -46,14 +57,20 @@ const login = () => {
 
   const handleLoginWithGoogle = async () => {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/google`
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/google`,
+      {
+        withCredentials: true,
+      },
     );
     console.log("🚀 ~ handleLoginWithGoogle ~ response:", response);
   };
 
   const handleLoginWithGithub = async () => {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/github`
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/github`,
+      {
+        withCredentials: true,
+      },
     );
     console.log("🚀 ~ handleLoginWithGithub ~ response:", response);
   };
@@ -70,14 +87,14 @@ const login = () => {
               </h1>
               <div className="flex flex-col gap-3">
                 <button
+                  onClick={handleLoginWithGoogle}
                   className="flex items-center gap-3 justify-center bg-red-500 w-full py-2 rounded-md text-white hover:bg-red-600"
-                  onClick={() => handleLoginWithGoogle()}
                 >
                   <RiGoogleFill className="text-2xl" /> Login with Google
                 </button>
                 <button
+                  onClick={handleLoginWithGithub}
                   className="flex items-center gap-3 justify-center bg-neutral-800 w-full py-2 rounded-md text-white hover:bg-neutral-900"
-                  onClick={() => handleLoginWithGithub()}
                 >
                   <RiGithubFill className="text-2xl" /> Login with Github
                 </button>

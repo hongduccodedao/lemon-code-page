@@ -3,11 +3,12 @@ import Link from "next/link";
 import React from "react";
 import icons from "@/utils/icons";
 import { Logo } from "../logo";
+import { useSelector } from "react-redux";
 
 const { RiSearch2Line } = icons;
 
 const NavBar = () => {
-  const [isLogin, setIsLogin] = React.useState(true);
+  const { isLogged } = useSelector((state) => state.user);
 
   return (
     <div className="border-b border-gray-300 w-full bg-white">
@@ -25,7 +26,7 @@ const NavBar = () => {
             </button>
           </div>
         </div>
-        {isLogin ? (
+        {isLogged ? (
           <div className="flex items-center gap-5">
             <Link href={paths.CREATE}>
               <button className="h-10 px-5 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500 hover:text-white duration-300 transition-all ease-in-out">

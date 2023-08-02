@@ -9,6 +9,9 @@ export default function Home() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: "posts",
     queryFn: () => apiGetPosts(),
+    refetchOnWindowFocus: false,
+    cacheTime: 24 * 10 * 60 * 60 * 1000, // 1 day
+    staleTime: 24 * 5 * 60 * 60 * 1000, // 1/2 day
   });
 
   return (
