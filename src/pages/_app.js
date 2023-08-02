@@ -2,10 +2,10 @@ import "@/styles/globals.scss";
 import { JetBrains_Mono } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
-import { persistor, store } from "../store/redux";
+import { persistor, store } from "@/store/redux";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
