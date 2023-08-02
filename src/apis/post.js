@@ -3,11 +3,13 @@ import axios from "../axios";
 export const apiGetPosts = async () => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/post/getAll`, {
-        withCredentials: true
-      }
+      `${process.env.NEXT_PUBLIC_API_URL}/post/getAll`,
+      {
+        withCredentials: true,
+      },
     );
     if (response.err == 0) {
+      console.log("🚀 ~ getProperties ~ response.data:", response.data);
       return response.data;
     }
     return [];
@@ -19,9 +21,10 @@ export const apiGetPosts = async () => {
 export const apiGetPostBySlug = async (slug) => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/post/${slug}`, {
-        withCredentials: true
-      }
+      `${process.env.NEXT_PUBLIC_API_URL}/post/${slug}`,
+      {
+        withCredentials: true,
+      },
     );
     if (response.err === 0) {
       return response.data;
@@ -37,7 +40,7 @@ export const apiCreatePost = async (data) => {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/posts`,
-      data
+      data,
     );
     if (response.status === 201) {
       return response.data;

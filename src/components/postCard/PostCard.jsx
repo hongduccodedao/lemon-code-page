@@ -11,10 +11,10 @@ const PostCard = ({ post }) => {
       className="max-w-[500px] bg-white rounded-lg cursor-pointer shadow-md"
       title={post.title}
     >
-      {post.thumbnail && (
+      {post.image && (
         <div className="relative w-full h-24">
           <Image
-            src={post.thumbnail}
+            src={post.image}
             alt="thumbnail"
             layout="fill"
             className="rounded-t-md object-cover object-center"
