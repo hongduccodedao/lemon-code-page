@@ -1,9 +1,12 @@
-import axios from "../axios";
+import axios from "../axios"
 
 export const apiLoginWithGoogle = async () => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/auth/google`
+      `${process.env.REACT_APP_API_URL}/auth/google`,
+      {
+        withCredentials: true,
+      }
     );
   } catch (error) {}
 };
@@ -24,5 +27,14 @@ export const apiLoginWithEmail = async ({ email, password }) => {
     }
   } catch (error) {
     console.log("🚀 ~ apiLoginWithEmail ~ error:", error);
+  }
+};
+
+export const apiGetCurrentUser = async () => {
+  try {
+    const response = await axios.get(`
+    ${process.env.REACT_APP_API_URL}/user/getCurrent`);
+  } catch (error) {
+    console.log("🚀 ~ apiGetCurrentUser ~ error", error);
   }
 };
