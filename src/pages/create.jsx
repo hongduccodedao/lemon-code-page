@@ -6,12 +6,11 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { TagsInput } from "react-tag-input-component";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiCreatePost } from "@/apis/post";
 import axios from "axios";
 
 const create = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [fileImage, setFileImage] = useState(null);
   const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [editorValue, setEditorValue] = useState("");
   const [title, setTitle] = useState("");
@@ -21,6 +20,17 @@ const create = () => {
   const displayImage = (e) => {
     const fileInput = e.target;
     const image = fileInput.files[0];
+    if (
+      image.type !== "image/png" &&
+      image.type !== "image/jpg" &&
+      image.type !== "image/jpeg"
+    ) {
+      return toast.error("Image format is not supported");
+    }
+    if (image.size > 1024 * 1024 * 5) {
+      return toast.error("Image size is too large");
+    }
+    setFileImage(image);
     const selectedImage = URL.createObjectURL(image);
 
     setSelectedImage(selectedImage);
@@ -51,10 +61,35 @@ const create = () => {
       content,
       tags,
     };
-    console.log("🚀 ~ handlePublic ~ data:", data)
 
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/post`, data);
-    console.log("🚀 ~ handlePublic ~ res:", res);
+    if (isImageUploaded) {
+      data.image = fileImage;
+    }
+
+    console.log(data);
+
+    let accessToken = null;
+    let localStorageData = localStorage.getItem("persist:lemon/user");
+    if (localStorageData && typeof localStorageData === "string") {
+      localStorageData = JSON.parse(localStorageData);
+      accessToken = JSON.parse(localStorageData.token);
+    }
+
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/post`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
+    if (res.data.err === 0) {
+      toast.success("Post created successfully");
+    } else {
+      toast.error("Something went wrong");
+    }
   };
 
   return (

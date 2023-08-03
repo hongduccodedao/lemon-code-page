@@ -50,6 +50,7 @@ const login = () => {
           token: response.access_token,
         }),
       );
+      window.location.href = paths.HOME;
     } else {
       toast.error(response);
     }

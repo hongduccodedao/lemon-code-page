@@ -39,8 +39,11 @@ export const apiGetPostBySlug = async (slug) => {
 export const apiCreatePost = async (data) => {
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/posts`,
+      `${process.env.NEXT_PUBLIC_API_URL}/post`,
       data,
+      {
+        headers: {},
+      },
     );
     if (response.status === 201) {
       return response.data;

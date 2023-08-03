@@ -1,6 +1,7 @@
 import Image from "next/image";
 import icons from "@/utils/icons";
 import Link from "next/link";
+import moment from "moment";
 
 const { RiBookmarkLine, RiHeartAddLine, RiChat1Line } = icons;
 
@@ -25,15 +26,19 @@ const PostCard = ({ post }) => {
         <div className="flex items-center gap-3">
           <div className="relative w-8 h-8">
             <Image
-              src={post.avatar}
+              src={post.userId.avatar}
               alt="avatar"
               layout="fill"
               className="rounded-full object-cover object-center"
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm">{post.author}</span>
-            <span className="text-xs text-gray-500">{post.created_at}</span>
+            <span className="text-sm">
+              {post.userId.firstName} {post.userId.lastName}
+            </span>
+            <span className="text-xs text-gray-500">
+              {moment(post.createdAt).fromNow()}
+            </span>
           </div>
         </div>
         <div className="py-3 px-10">
