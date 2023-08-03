@@ -6,6 +6,7 @@ import { LayoutMain } from "@/components/layouts";
 import { toast } from "react-toastify";
 import { paths } from "@/utils/paths";
 import Link from "next/link";
+import * as apis from "@/apis";
 
 const {
   RiGoogleFill,
@@ -14,16 +15,20 @@ const {
   RiLock2Fill,
   RiEyeOffFill,
   RiEyeFill,
+  RiAccountCircleFill,
 } = icons;
 
 const register = () => {
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
   const [passwordConfirm, setPasswordConfirm] = React.useState("");
 
-  const handleLogin = () => {
-    if (!email || !password || !passwordConfirm) {
+  const handleLogin = async () => {
+    if (!email || !password || !passwordConfirm || !firstName || !lastName) {
       return toast.error("Please fill all the fields");
     }
 
@@ -31,12 +36,29 @@ const register = () => {
       return toast.error("Passwords do not match");
     }
 
-    toast.success("Login success");
+    const response = await apis.apiRegister({
+      email,
+      password,
+      firstName,
+      lastName,
+    });
+
+    if (response.err === 0) {
+      toast.success("Register successfully");
+      setEmail("");
+      setPassword("");
+      setPasswordConfirm("");
+      setFirstName("");
+      setLastName("");
+      window.location.href = paths.LOGIN;
+    } else {
+      toast.error(response);
+    }
   };
 
   return (
     <>
-      <SEO title="Login" description="Login page" />
+      <SEO title="Register" description="Register page" />
       <main>
         <LayoutMain>
           <div className="w-full flex items-center justify-center">
@@ -59,6 +81,48 @@ const register = () => {
               </div>
 
               <div className="mt-10 flex flex-col gap-3">
+                <div className="flex items-center gap-3">
+                  <div>
+                    <label
+                      htmlFor="firstName"
+                      className="text-gray-600 text-sm mb-4"
+                    >
+                      First Name <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
+                      <RiAccountCircleFill className="text-2xl" />
+                      <input
+                        type="firstName"
+                        name="firstName"
+                        id="firstName"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        className="w-full outline-none"
+                        placeholder="First Name"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="lastName"
+                      className="text-gray-600 text-sm mb-4"
+                    >
+                      Last Name <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
+                      <RiAccountCircleFill className="text-2xl" />
+                      <input
+                        type="lastName"
+                        name="lastName"
+                        id="lastName"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        className="w-full outline-none"
+                        placeholder="Last Name"
+                      />
+                    </div>
+                  </div>
+                </div>
                 <div>
                   <label htmlFor="email" className="text-gray-600 text-sm mb-4">
                     Email <span className="text-red-500">*</span>
@@ -117,7 +181,7 @@ const register = () => {
                   <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
                     <RiLock2Fill className="text-2xl" />
                     <input
-                      type={showPassword ? "text" : "password"}
+                      type={showPasswordConfirm ? "text" : "password"}
                       name="passwordConfirm"
                       id="passwordConfirm"
                       className="w-full outline-none"
@@ -128,9 +192,11 @@ const register = () => {
                     <button
                       type="button"
                       className="text-gray-500 outline-none focus:outline-none"
-                      onClick={() => setShowPassword(!showPassword)}
+                      onClick={() =>
+                        setShowPasswordConfirm(!showPasswordConfirm)
+                      }
                     >
-                      {showPassword ? (
+                      {showPasswordConfirm ? (
                         <RiEyeFill className="text-xl" />
                       ) : (
                         <RiEyeOffFill className="text-xl" />

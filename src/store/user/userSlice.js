@@ -15,6 +15,7 @@ export const userSlice = createSlice({
     handleLoginRedux: (state, action) => {
       state.isLogged = action.payload.isLogged;
       state.token = action.payload.token;
+      state.current = action.payload.current;
     },
   },
   extraReducers: (builder) => {

@@ -4,11 +4,12 @@ import React from "react";
 import icons from "@/utils/icons";
 import { Logo } from "../logo";
 import { useSelector } from "react-redux";
+import Image from "next/image";
 
 const { RiSearch2Line } = icons;
 
 const NavBar = () => {
-  const { isLogged } = useSelector((state) => state.user);
+  const { isLogged, current } = useSelector((state) => state.user);
 
   return (
     <div className="border-b border-gray-300 w-full bg-white">
@@ -33,7 +34,13 @@ const NavBar = () => {
                 Create Post
               </button>
             </Link>
-            <span>Avatar</span>
+            <div className="relative w-10 h-10">
+              <Image
+                src={current?.avatar}
+                layout="fill"
+                className="rounded-full"
+              />
+            </div>
           </div>
         ) : (
           <div className="flex items-center gap-5">

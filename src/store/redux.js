@@ -11,17 +11,16 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
-import { current } from "@reduxjs/toolkit";
 
 const persistConfig = {
   key: "lemon/user",
   storage,
-}
+};
 
 const userConfig = {
   ...persistConfig,
-  whitelist: ["isLogged", "token", current],
-}
+  whitelist: ["isLogged", "token", "current"],
+};
 
 export const store = configureStore({
   reducer: {
