@@ -7,8 +7,14 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { TagsInput } from "react-tag-input-component";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link";
+import { paths } from "@/utils/paths";
 
 const create = () => {
+  const dispatch = useDispatch();
+  const { isLogged } = useSelector((state) => state.user);
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [fileImage, setFileImage] = useState(null);
   const [isImageUploaded, setIsImageUploaded] = useState(false);
@@ -66,8 +72,6 @@ const create = () => {
       data.image = fileImage;
     }
 
-    console.log(data);
-
     let accessToken = null;
     let localStorageData = localStorage.getItem("persist:lemon/user");
     if (localStorageData && typeof localStorageData === "string") {
@@ -102,70 +106,84 @@ const create = () => {
           </div>
         </div>
         <div className="max-w-[1200px] mx-auto mt-10">
-          <div className="bg-white p-10 rounded-xl shadow-md">
-            <div className="flex items-center gap-10">
-              {isImageUploaded && (
-                <div className="relative max-w-[500px]">
-                  <Image
-                    src={selectedImage}
-                    alt="Selected Image"
-                    layout="responsive"
-                    width={100}
-                    height={100}
-                    objectFit="cover"
-                    className="rounded-xl"
-                  />
-                </div>
-              )}
-              <div className="flex items-center gap-2">
-                <label
-                  htmlFor="file-upload"
-                  className="cursor-pointer inline-block px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500 hover:text-white transition duration-300 ease-in-out"
-                >
-                  {isImageUploaded ? "Change Image" : "Add a cover image"}
-                </label>
-                <input
-                  id="file-upload"
-                  type="file"
-                  className="hidden"
-                  onChange={displayImage}
-                />
-                {isImageUploaded && (
-                  <button
-                    className="inline-block px-4 py-2 rounded-md border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition duration-300 ease-in-out"
-                    onClick={handleRemoveImage}
-                  >
-                    Remove Image
-                  </button>
-                )}
-              </div>
+          {!isLogged ? (
+            <div>
+              <span className="">
+                Please{" "}
+                <Link href={paths.LOGIN} className="text-green-500">
+                  Login
+                </Link>{" "}
+                to create a post.
+              </span>
             </div>
-            <input
-              type="text"
-              className="my-4 w-full outline-none text-6xl placeholder:text-gray-600 font-bold"
-              placeholder="New post title here..."
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <TagsInput
-              value={tags}
-              onChange={setTags}
-              name="tags"
-              placeHolder="Add tags..."
-              className="w-full my-2"
-            />
-            <small className="py-2">
-              <span className="text-gray-400">Note:</span> Press{" "}
-              <span className="font-bold">Enter</span> to add a tag
-            </small>
-            <Editor value={editorValue} onChange={handleEditorChange} />
-            <button
-              className="cursor-pointer inline-block px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600 transition-all duration-300 ease-in-out mt-5"
-              onClick={handlePublic}
-            >
-              Public
-            </button>
-          </div>
+          ) : (
+            <>
+              <div className="bg-white p-10 rounded-xl shadow-md">
+                <div className="flex items-center gap-10">
+                  {isImageUploaded && (
+                    <div className="relative max-w-[500px]">
+                      <Image
+                        src={selectedImage}
+                        alt="Selected Image"
+                        layout="responsive"
+                        width={100}
+                        height={100}
+                        objectFit="cover"
+                        className="rounded-xl"
+                      />
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2">
+                    <label
+                      htmlFor="file-upload"
+                      className="cursor-pointer inline-block px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500 hover:text-white transition duration-300 ease-in-out"
+                    >
+                      {isImageUploaded ? "Change Image" : "Add a cover image"}
+                    </label>
+                    <input
+                      id="file-upload"
+                      type="file"
+                      className="hidden"
+                      onChange={displayImage}
+                    />
+                    {isImageUploaded && (
+                      <button
+                        className="inline-block px-4 py-2 rounded-md border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition duration-300 ease-in-out"
+                        onClick={handleRemoveImage}
+                      >
+                        Remove Image
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  className="my-4 w-full outline-none text-6xl placeholder:text-gray-600 font-bold"
+                  placeholder="New post title here..."
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                <TagsInput
+                  value={tags}
+                  onChange={setTags}
+                  name="tags"
+                  placeHolder="Add tags..."
+                  className="w-full my-2"
+                />
+                <small className="py-2">
+                  <span className="text-gray-400">Note:</span> Press{" "}
+                  <span className="font-bold">Enter</span> to add a tag
+                </small>
+                <Editor value={editorValue} onChange={handleEditorChange} />
+                <button
+                  className="cursor-pointer inline-block px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600 transition-all duration-300 ease-in-out mt-5"
+                  onClick={handlePublic}
+                >
+                  Public
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </main>
     </>

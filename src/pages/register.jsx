@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { paths } from "@/utils/paths";
 import Link from "next/link";
 import * as apis from "@/apis";
+import { useDispatch, useSelector } from "react-redux";
+import { handleLogoutRedux } from "@/store/user/userSlice";
 
 const {
   RiGoogleFill,
@@ -19,6 +21,9 @@ const {
 } = icons;
 
 const register = () => {
+  const dispatch = useDispatch();
+  const { isLogged } = useSelector((state) => state.user);
+
   const [showPassword, setShowPassword] = React.useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = React.useState(false);
   const [email, setEmail] = React.useState("");
@@ -58,172 +63,201 @@ const register = () => {
 
   return (
     <>
-      <SEO title="Register" description="Register page" />
+      <SEO title="Register | Lemon Code" description="Register page" />
       <main>
         <LayoutMain>
           <div className="w-full flex items-center justify-center">
-            <div className="bg-white inline-block p-5 rounded-lg shadow-md min-w-[600px] mt-10">
-              <h1 className="font-semibold mb-5 text-2xl text-center">
-                Welcome to Lemon Code
-              </h1>
-              <div className="flex flex-col gap-3">
-                <button className="flex items-center gap-3 justify-center bg-red-500 w-full py-2 rounded-md text-white hover:bg-red-600">
-                  <RiGoogleFill className="text-2xl" /> Login with Google
-                </button>
-                <button className="flex items-center gap-3 justify-center bg-neutral-800 w-full py-2 rounded-md text-white hover:bg-neutral-900">
-                  <RiGithubFill className="text-2xl" /> Login with Github
-                </button>
-              </div>
-              <div className="relative after:absolute after:w-full after:h-0.5 after:bg-gray-300 after:top-1/2 after:left-0 after:rounded-md my-5">
-                <span className="text-xs bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-gray-500">
-                  Or create an account with email
+            {isLogged ? (
+              <div className="my-10">
+                <span className="text-xl">
+                  You are already logged in. Go to{" "}
+                  <Link
+                    href={paths.HOME}
+                    className="text-green-500 font-semibold"
+                  >
+                    Home
+                  </Link>{" "}
+                  or{" "}
+                  <span
+                    className="text-red-500 font-semibold cursor-pointer"
+                    onClick={() => {
+                      dispatch(handleLogoutRedux());
+                    }}
+                  >
+                    Logout
+                  </span>
+                  .
                 </span>
               </div>
-
-              <div className="mt-10 flex flex-col gap-3">
-                <div className="flex items-center gap-3">
-                  <div>
-                    <label
-                      htmlFor="firstName"
-                      className="text-gray-600 text-sm mb-4"
-                    >
-                      First Name <span className="text-red-500">*</span>
-                    </label>
-                    <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
-                      <RiAccountCircleFill className="text-2xl" />
-                      <input
-                        type="firstName"
-                        name="firstName"
-                        id="firstName"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        className="w-full outline-none"
-                        placeholder="First Name"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="lastName"
-                      className="text-gray-600 text-sm mb-4"
-                    >
-                      Last Name <span className="text-red-500">*</span>
-                    </label>
-                    <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
-                      <RiAccountCircleFill className="text-2xl" />
-                      <input
-                        type="lastName"
-                        name="lastName"
-                        id="lastName"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        className="w-full outline-none"
-                        placeholder="Last Name"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="email" className="text-gray-600 text-sm mb-4">
-                    Email <span className="text-red-500">*</span>
-                  </label>
-                  <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
-                    <RiMailFill className="text-2xl" />
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full outline-none"
-                      placeholder="Email address"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="text-gray-600 text-sm mb-4"
-                  >
-                    Password <span className="text-red-500">*</span>
-                  </label>
-                  <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
-                    <RiLock2Fill className="text-2xl" />
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      name="password"
-                      id="password"
-                      className="w-full outline-none"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Password"
-                    />
-                    <button
-                      type="button"
-                      className="text-gray-500 outline-none focus:outline-none"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? (
-                        <RiEyeFill className="text-xl" />
-                      ) : (
-                        <RiEyeOffFill className="text-xl" />
-                      )}
+            ) : (
+              <>
+                <div className="bg-white inline-block p-5 rounded-lg shadow-md min-w-[600px] mt-10">
+                  <h1 className="font-semibold mb-5 text-2xl text-center">
+                    Welcome to Lemon Code
+                  </h1>
+                  <div className="flex flex-col gap-3">
+                    <button className="flex items-center gap-3 justify-center bg-red-500 w-full py-2 rounded-md text-white hover:bg-red-600">
+                      <RiGoogleFill className="text-2xl" /> Login with Google
+                    </button>
+                    <button className="flex items-center gap-3 justify-center bg-neutral-800 w-full py-2 rounded-md text-white hover:bg-neutral-900">
+                      <RiGithubFill className="text-2xl" /> Login with Github
                     </button>
                   </div>
-                </div>
-                <div>
-                  <label
-                    htmlFor="passwordConfirm"
-                    className="text-gray-600 text-sm mb-4"
-                  >
-                    Confirm Password <span className="text-red-500">*</span>
-                  </label>
-                  <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
-                    <RiLock2Fill className="text-2xl" />
-                    <input
-                      type={showPasswordConfirm ? "text" : "password"}
-                      name="passwordConfirm"
-                      id="passwordConfirm"
-                      className="w-full outline-none"
-                      value={passwordConfirm}
-                      onChange={(e) => setPasswordConfirm(e.target.value)}
-                      placeholder="Confirm Password"
-                    />
+                  <div className="relative after:absolute after:w-full after:h-0.5 after:bg-gray-300 after:top-1/2 after:left-0 after:rounded-md my-5">
+                    <span className="text-xs bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-gray-500">
+                      Or create an account with email
+                    </span>
+                  </div>
+
+                  <div className="mt-10 flex flex-col gap-3">
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <label
+                          htmlFor="firstName"
+                          className="text-gray-600 text-sm mb-4"
+                        >
+                          First Name <span className="text-red-500">*</span>
+                        </label>
+                        <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
+                          <RiAccountCircleFill className="text-2xl" />
+                          <input
+                            type="firstName"
+                            name="firstName"
+                            id="firstName"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            className="w-full outline-none"
+                            placeholder="First Name"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="lastName"
+                          className="text-gray-600 text-sm mb-4"
+                        >
+                          Last Name <span className="text-red-500">*</span>
+                        </label>
+                        <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
+                          <RiAccountCircleFill className="text-2xl" />
+                          <input
+                            type="lastName"
+                            name="lastName"
+                            id="lastName"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            className="w-full outline-none"
+                            placeholder="Last Name"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="text-gray-600 text-sm mb-4"
+                      >
+                        Email <span className="text-red-500">*</span>
+                      </label>
+                      <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
+                        <RiMailFill className="text-2xl" />
+                        <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="w-full outline-none"
+                          placeholder="Email address"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="password"
+                        className="text-gray-600 text-sm mb-4"
+                      >
+                        Password <span className="text-red-500">*</span>
+                      </label>
+                      <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
+                        <RiLock2Fill className="text-2xl" />
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          name="password"
+                          id="password"
+                          className="w-full outline-none"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          placeholder="Password"
+                        />
+                        <button
+                          type="button"
+                          className="text-gray-500 outline-none focus:outline-none"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? (
+                            <RiEyeFill className="text-xl" />
+                          ) : (
+                            <RiEyeOffFill className="text-xl" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="passwordConfirm"
+                        className="text-gray-600 text-sm mb-4"
+                      >
+                        Confirm Password <span className="text-red-500">*</span>
+                      </label>
+                      <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
+                        <RiLock2Fill className="text-2xl" />
+                        <input
+                          type={showPasswordConfirm ? "text" : "password"}
+                          name="passwordConfirm"
+                          id="passwordConfirm"
+                          className="w-full outline-none"
+                          value={passwordConfirm}
+                          onChange={(e) => setPasswordConfirm(e.target.value)}
+                          placeholder="Confirm Password"
+                        />
+                        <button
+                          type="button"
+                          className="text-gray-500 outline-none focus:outline-none"
+                          onClick={() =>
+                            setShowPasswordConfirm(!showPasswordConfirm)
+                          }
+                        >
+                          {showPasswordConfirm ? (
+                            <RiEyeFill className="text-xl" />
+                          ) : (
+                            <RiEyeOffFill className="text-xl" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
                     <button
-                      type="button"
-                      className="text-gray-500 outline-none focus:outline-none"
-                      onClick={() =>
-                        setShowPasswordConfirm(!showPasswordConfirm)
-                      }
+                      className="bg-green-500 w-full py-2 rounded-md text-white hover:bg-green-600 mt-5"
+                      onClick={() => handleLogin()}
                     >
-                      {showPasswordConfirm ? (
-                        <RiEyeFill className="text-xl" />
-                      ) : (
-                        <RiEyeOffFill className="text-xl" />
-                      )}
+                      Register
                     </button>
+
+                    <div className="relative after:absolute after:w-full after:h-0.5 after:bg-gray-300 after:top-1/2 after:left-0 after:rounded-md my-5">
+                      <span className="text-xs bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-gray-500">
+                        Already have an account?{" "}
+                        <Link
+                          href={paths.LOGIN}
+                          className="hover:text-green-500 hover:underline"
+                        >
+                          Login now
+                        </Link>
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <button
-                  className="bg-green-500 w-full py-2 rounded-md text-white hover:bg-green-600 mt-5"
-                  onClick={() => handleLogin()}
-                >
-                  Register
-                </button>
-
-                <div className="relative after:absolute after:w-full after:h-0.5 after:bg-gray-300 after:top-1/2 after:left-0 after:rounded-md my-5">
-                  <span className="text-xs bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-gray-500">
-                    Already have an account?{" "}
-                    <Link
-                      href={paths.LOGIN}
-                      className="hover:text-green-500 hover:underline"
-                    >
-                      Login now
-                    </Link>
-                  </span>
-                </div>
-              </div>
-            </div>
+              </>
+            )}
           </div>
         </LayoutMain>
       </main>
