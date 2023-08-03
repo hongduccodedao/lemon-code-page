@@ -17,6 +17,11 @@ export const userSlice = createSlice({
       state.token = action.payload.token;
       state.current = action.payload.current;
     },
+    handleLogoutRedux: (state) => {
+      state.isLogged = false;
+      state.token = "";
+      state.current = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -37,5 +42,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { handleLoginRedux } = userSlice.actions;
+export const { handleLoginRedux, handleLogoutRedux } = userSlice.actions;
 export default userSlice.reducer;
