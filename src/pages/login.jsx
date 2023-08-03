@@ -48,6 +48,7 @@ const login = () => {
         handleLoginRedux({
           isLogged: true,
           token: response.access_token,
+          current: response.data,
         }),
       );
       window.location.href = paths.HOME;

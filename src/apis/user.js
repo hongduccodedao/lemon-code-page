@@ -1,12 +1,13 @@
-import axios from "../axios"
+import axios from "../axios";
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 
 export const apiLoginWithGoogle = async () => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/auth/google`,
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/google`,
       {
         withCredentials: true,
-      }
+      },
     );
   } catch (error) {}
 };
@@ -14,11 +15,11 @@ export const apiLoginWithGoogle = async () => {
 export const apiLoginWithEmail = async ({ email, password }) => {
   try {
     const response = await axios.post(
-      `https://lemon-code-page.onrender.com/api/auth/login`,
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
       {
         email,
         password,
-      }
+      },
     );
     if (response.err === 0) {
       return response;
@@ -33,8 +34,29 @@ export const apiLoginWithEmail = async ({ email, password }) => {
 export const apiGetCurrentUser = async () => {
   try {
     const response = await axios.get(`
-    ${process.env.REACT_APP_API_URL}/user/getCurrent`);
+    ${process.env.NEXT_PUBLIC_API_URL}/user/getCurrent`);
   } catch (error) {
     console.log("🚀 ~ apiGetCurrentUser ~ error", error);
+  }
+};
+
+export const apiRegister = async ({ email, password, firstName, lastName }) => {
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+      {
+        email,
+        password,
+        firstName,
+        lastName,
+      },
+    );
+    if (response.err === 0) {
+      return response;
+    } else {
+      return response.message;
+    }
+  } catch (error) {
+    console.log("🚀 ~ apiRegister ~ error", error);
   }
 };
