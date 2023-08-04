@@ -13,7 +13,7 @@ const NavBar = () => {
 
   return (
     <div className="border-b border-gray-300 w-full bg-white">
-      <div className="flex items-center justify-between max-w-[1200px] w-full mx-auto p-5">
+      <div className="flex items-center justify-between max-w-[1200px] w-full mx-auto py-5">
         <div className="flex items-center gap-10">
           <Logo />
           <div className="flex items-center border border-gray-300 rounded-md h-10">
@@ -34,7 +34,10 @@ const NavBar = () => {
                 Create Post
               </button>
             </Link>
-            <Link href={`/${current._id}`} title="Index">
+            <Link
+              href={`/${current._id}`}
+              title={current.firstName + " " + current.lastName}
+            >
               <div className="relative w-10 h-10">
                 <Image
                   src={current?.avatar}
