@@ -34,7 +34,7 @@ const NavBar = () => {
                 Create Post
               </button>
             </Link>
-            <Link href={paths.PROFILE} title="Profile">
+            <Link href={`/${current._id}`} title="Index">
               <div className="relative w-10 h-10">
                 <Image
                   src={current?.avatar}

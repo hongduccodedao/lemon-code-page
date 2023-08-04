@@ -9,7 +9,7 @@ const PostCard = ({ post }) => {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className="max-w-[500px] bg-white rounded-lg cursor-pointer shadow-md"
+      className="flex-auto w-full bg-white rounded-lg cursor-pointer shadow-md"
       title={post.title}
     >
       {post.image && (
@@ -26,7 +26,7 @@ const PostCard = ({ post }) => {
         <div className="flex items-center gap-3">
           <div className="relative w-8 h-8">
             <Image
-              src={post.userId.avatar}
+              src={post.user.avatar}
               alt="avatar"
               layout="fill"
               className="rounded-full object-cover object-center"
@@ -34,7 +34,7 @@ const PostCard = ({ post }) => {
           </div>
           <div className="flex flex-col">
             <span className="text-sm">
-              {post.userId.firstName} {post.userId.lastName}
+              {post.user.firstName} {post.user.lastName}
             </span>
             <span className="text-xs text-gray-500">
               {moment(post.createdAt).fromNow()}

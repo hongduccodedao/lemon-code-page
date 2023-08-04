@@ -54,3 +54,21 @@ export const apiCreatePost = async (data) => {
     return {};
   }
 };
+
+export const apiGetPostByUserId = async (uid) => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/post/getPostsUser/${uid}`,
+      {
+        withCredentials: true,
+      },
+    );
+    if (response.err === 0) {
+      return response.data;
+    }
+    return [];
+  } catch (error) {
+    console.log("🚀 ~ apiGetPostByUserId ~ error:", error);
+    return [];
+  }
+};
