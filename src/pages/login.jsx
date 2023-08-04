@@ -73,7 +73,7 @@ const login = () => {
 
   return (
     <>
-      <SEO title="Login | Lemon Page" description="Login page" />
+      <SEO title="Login" description="Login page" />
       <main>
         <LayoutMain>
           <div className="w-full flex items-center justify-center">

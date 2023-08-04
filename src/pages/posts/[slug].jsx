@@ -34,7 +34,7 @@ const PostDetailPage = ({ post }) => {
   return (
     <>
       <SEO
-        title={`${data?.title} | Lemon Code`}
+        title={`${data?.title}`}
         description={data?.content}
         image={data?.image}
       />
