@@ -9,6 +9,7 @@ import { paths } from "@/utils/paths";
 import { apiGetPostByUserId } from "@/apis";
 import { useQuery } from "@tanstack/react-query";
 import { PostCard } from "@/components/postCard";
+import { Loading } from "@/components/loadings";
 
 const { RiCake2Line, RiMailLine, RiSettingsLine, RiFileList3Line } = icons;
 const Profile = () => {
@@ -27,9 +28,11 @@ const Profile = () => {
 
   return (
     <>
-      <SEO title="Profile" />
+      <SEO title={`${current.firstName} ${current.lastName}`} />
       <main>
         <LayoutMain>
+          {isLoading && <Loading />}
+          {isError && <p>{error.message}</p>}
           <div className="max-w-[1200px] mx-auto my-10 flex gap-10">
             <div className="flex flex-col gap-10">
               <div className="relative w-[250px] h-[250px]">
