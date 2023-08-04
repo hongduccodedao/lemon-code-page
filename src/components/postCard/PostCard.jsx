@@ -33,9 +33,13 @@ const PostCard = ({ post }) => {
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm">
+            <Link
+              className="text-sm"
+              href={`/${post.user._id}`}
+              title={`${post.user.firstName} ${post.user.lastName}`}
+            >
               {post.user.firstName} {post.user.lastName}
-            </span>
+            </Link>
             <span className="text-xs text-gray-500">
               {moment(post.createdAt).fromNow()}
             </span>

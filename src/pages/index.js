@@ -33,9 +33,14 @@ export default function Home() {
       <SEO title="Home" description="Lemon Code" />
       <main>
         <LayoutMain>
-          {isLoading && <Loading />}
-          {isError && <p>{error.message}</p>}
           <div className="flex gap-10 max-w-[1200px] mx-auto my-10">
+            {isLoading ||
+              (isError && (
+                <div className="w-full h-[200px] flex items-center justify-center">
+                  {isLoading && <Loading />}
+                  {isError && <p>{error.message}</p>}
+                </div>
+              ))}
             <div className="w-[200px]">
               <h2 className="text-2xl font-bold">Tags</h2>
               <div className="w-full h-0.5 bg-gray-300 my-4"></div>

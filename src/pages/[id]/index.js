@@ -31,8 +31,13 @@ const Profile = () => {
       <SEO title={`${current.firstName} ${current.lastName}`} />
       <main>
         <LayoutMain>
-          {isLoading && <Loading />}
-          {isError && <p>{error.message}</p>}
+          {isLoading ||
+            (isError && (
+              <div className="w-full h-[200px] flex items-center justify-center">
+                {isLoading && <Loading />}
+                {isError && <p>{error.message}</p>}
+              </div>
+            ))}
           <div className="max-w-[1200px] mx-auto my-10 flex gap-10">
             <div className="flex flex-col gap-10">
               <div className="relative w-[250px] h-[250px]">

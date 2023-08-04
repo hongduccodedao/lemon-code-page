@@ -7,7 +7,7 @@ const Setting = () => {
     <>
       <SEO title="Setting" />
       <main>
-        <LayoutMain>setting</LayoutMain>
+        <LayoutMain></LayoutMain>
       </main>
     </>
   );
