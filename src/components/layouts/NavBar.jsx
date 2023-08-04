@@ -34,13 +34,15 @@ const NavBar = () => {
                 Create Post
               </button>
             </Link>
-            <div className="relative w-10 h-10">
-              <Image
-                src={current?.avatar}
-                layout="fill"
-                className="rounded-full"
-              />
-            </div>
+            <Link href={paths.PROFILE} title="Profile">
+              <div className="relative w-10 h-10">
+                <Image
+                  src={current?.avatar}
+                  layout="fill"
+                  className="rounded-full"
+                />
+              </div>
+            </Link>
           </div>
         ) : (
           <div className="flex items-center gap-5">

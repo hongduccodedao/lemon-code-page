@@ -16,14 +16,15 @@ export default function Home() {
 
   return (
     <>
-      <SEO title="Lemon Code" description="Lemon Code" />
+      <SEO title="Home" description="Lemon Code" />
       <main>
         <LayoutMain>
           <h1>Home</h1>
           {isLoading && <Loading />}
           {isError && <p>{error.message}</p>}
           <div className="flex flex-col gap-5">
-            {data && data.map((post) => <PostCard key={post._id} post={post} />)}
+            {data &&
+              data.map((post) => <PostCard key={post._id} post={post} />)}
           </div>
         </LayoutMain>
       </main>

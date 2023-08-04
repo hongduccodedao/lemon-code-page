@@ -63,7 +63,7 @@ const register = () => {
 
   return (
     <>
-      <SEO title="Register | Lemon Code" description="Register page" />
+      <SEO title="Register" description="Register page" />
       <main>
         <LayoutMain>
           <div className="w-full flex items-center justify-center">
