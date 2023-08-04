@@ -4,5 +4,6 @@ export const paths = {
   LOGIN: "/login",
   REGISTER: "/register",
   POST__SLUG: "/posts/:slug",
-  PROFILE: "/profile",
+  PROFILE: "/:userId",
+  SETTING: "/setting",
 };

@@ -1,15 +1,19 @@
 import {
   RiAccountCircleFill,
   RiBookmarkLine,
+  RiCake2Line,
   RiChat1Line,
   RiEyeFill,
   RiEyeOffFill,
+  RiFileList3Line,
   RiGithubFill,
   RiGoogleFill,
   RiHeartAddLine,
   RiLock2Fill,
   RiMailFill,
+  RiMailLine,
   RiSearch2Line,
+  RiSettingsLine,
 } from "react-icons/ri";
 
 const icons = {
@@ -24,6 +28,10 @@ const icons = {
   RiHeartAddLine,
   RiChat1Line,
   RiAccountCircleFill,
+  RiCake2Line,
+  RiMailLine,
+  RiSettingsLine,
+  RiFileList3Line,
 };
 
 export default icons;

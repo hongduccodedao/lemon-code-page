@@ -31,10 +31,22 @@ export const apiLoginWithEmail = async ({ email, password }) => {
   }
 };
 
-export const apiGetCurrentUser = async () => {
+export const apiGetCurrentUser = async (userId) => {
   try {
-    const response = await axios.get(`
-    ${process.env.NEXT_PUBLIC_API_URL}/user/getCurrent`);
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/getCurrent`,
+      {
+        withCredentials: true,
+        body: {
+          userId,
+        },
+      },
+    );
+    if (response.err === 0) {
+      return response.data;
+    } else {
+      return {};
+    }
   } catch (error) {
     console.log("🚀 ~ apiGetCurrentUser ~ error", error);
   }
