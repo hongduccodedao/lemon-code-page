@@ -23,8 +23,6 @@ export async function getServerSideProps({ params }) {
 const PostDetailPage = ({ post }) => {
   const router = useRouter();
 
-  console.log("🚀 ~ PostDetailPage ~ router:", router.query.slug);
-
   const { data } = useQuery({
     queryKey: ["post", router.query.slug],
     queryFn: () => apiGetPostBySlug(router.query.slug),
