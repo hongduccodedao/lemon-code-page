@@ -45,21 +45,35 @@ export default function Home() {
               <h2 className="text-2xl font-bold">Tags</h2>
               <div className="w-full h-0.5 bg-gray-300 my-4"></div>
               <div className="flex flex-col gap-2">
-                {data?.tagsData?.map((tag) => (
-                  <div
-                    key={tag}
-                    className="hover:bg-green-200 p-2 rounded-lg hover:underline cursor-pointer"
-                  >
-                    <p>#{tag}</p>
-                  </div>
-                ))}
+                {data?.tagsData?.length > 0 ? (
+                  <>
+                    {data?.tagsData?.map((tag) => (
+                      <div
+                        key={tag}
+                        className="hover:bg-green-200 p-2 rounded-lg hover:underline cursor-pointer"
+                      >
+                        <p>#{tag}</p>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <p>No tags</p>
+                )}
               </div>
             </div>
             <div className="flex flex-col gap-5 flex-1">
-              {data?.postsData &&
-                data?.postsData?.map((post) => (
-                  <PostCard key={post._id} post={post} />
-                ))}
+              {data?.postsData?.length > 0 ? (
+                <>
+                  {data?.postsData &&
+                    data?.postsData?.map((post) => (
+                      <PostCard key={post._id} post={post} />
+                    ))}
+                </>
+              ) : (
+                <div className="w-full h-[200px] flex items-center justify-center">
+                  <p>No posts</p>
+                </div>
+              )}
             </div>
           </div>
         </LayoutMain>

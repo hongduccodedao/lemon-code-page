@@ -85,9 +85,13 @@ const Profile = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-3">
-                {data?.map((post) => (
-                  <PostCard key={post._id} post={post} />
-                ))}
+                {data?.length > 0 ? (
+                  data?.map((post) => <PostCard key={post._id} post={post} />)
+                ) : (
+                  <div className="w-full h-[200px] flex items-center justify-center">
+                    <p>No post published</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
