@@ -5,6 +5,7 @@ import icons from "@/utils/icons";
 import { Logo } from "../logo";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrent } from "@/store/user/asyncActions";
+import Image from "next/image";
 
 const { RiSearch2Line } = icons;
 
@@ -47,10 +48,12 @@ const NavBar = () => {
               title={current?.firstName + " " + current?.lastName}
             >
               <div className="relative w-10 h-10">
-                <img
+                <Image
                   src={current?.avatar}
                   alt="avatar"
-                  className="rounded-full object-cover object-center"
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-full cursor-pointer hover:opacity-80 duration-300 transition-all ease-in-out object-center object-cover"
                 />
               </div>
             </Link>
