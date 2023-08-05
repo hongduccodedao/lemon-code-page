@@ -5,11 +5,10 @@ export const getCurrent = createAsyncThunk(
   "user/getCurrent",
   async (data, { rejectWithValue }) => {
     const response = await apis.apiGetCurrentUser();
-
-    if (response.err === 0) {
-      return rejectWithValue(response);
+    if (response.err !== 0) {
+      return rejectWithValue(response.message);
     }
 
-    return response.rs;
-  }
+    return response.data;
+  },
 );

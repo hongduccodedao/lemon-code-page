@@ -9,7 +9,6 @@ export const apiGetPosts = async () => {
       },
     );
     if (response.err == 0) {
-      console.log("🚀 ~ getProperties ~ response.data:", response.data);
       return response.data;
     }
     return [];

@@ -37,13 +37,10 @@ export const apiGetCurrentUser = async (userId) => {
       `${process.env.NEXT_PUBLIC_API_URL}/user/getCurrent`,
       {
         withCredentials: true,
-        body: {
-          userId,
-        },
       },
     );
     if (response.err === 0) {
-      return response.data;
+      return response;
     } else {
       return {};
     }
