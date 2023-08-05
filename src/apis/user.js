@@ -1,5 +1,4 @@
 import axios from "../axios";
-import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 
 export const apiLoginWithGoogle = async () => {
   try {
@@ -89,5 +88,23 @@ export const apiUpdateInfo = async ({ firstName, lastName }) => {
     }
   } catch (error) {
     console.log("🚀 ~ apiUpdateInfo ~ error", error);
+  }
+};
+
+export const apiGetUserById = async (userId) => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${userId}`,
+      {
+        withCredentials: true,
+      },
+    );
+    if (response.err === 0) {
+      return response.data;
+    } else {
+      return {};
+    }
+  } catch (error) {
+    console.log("🚀 ~ apiGetUserById ~ error", error);
   }
 };

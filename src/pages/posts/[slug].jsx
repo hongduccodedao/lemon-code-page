@@ -12,7 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export async function getServerSideProps({ params }) {
   const post = await apiGetPostBySlug(params.slug);
-
+  console.log(post);
   return {
     props: {
       post,

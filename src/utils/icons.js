@@ -11,6 +11,7 @@ import {
   RiGoogleFill,
   RiHeartAddLine,
   RiLock2Fill,
+  RiLogoutCircleRLine,
   RiMailFill,
   RiMailLine,
   RiSearch2Line,
@@ -34,6 +35,7 @@ const icons = {
   RiSettingsLine,
   RiFileList3Line,
   RiArrowDropLeftLine,
+  RiLogoutCircleRLine,
 };
 
 export default icons;

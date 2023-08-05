@@ -6,8 +6,9 @@ import { Logo } from "../logo";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrent } from "@/store/user/asyncActions";
 import Image from "next/image";
+import { handleLogoutRedux } from "@/store/user/userSlice";
 
-const { RiSearch2Line } = icons;
+const { RiSearch2Line, RiLogoutCircleRLine } = icons;
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,9 @@ const NavBar = () => {
                 />
               </div>
             </Link>
+            <span onClick={() => dispatch(handleLogoutRedux())}>
+              <RiLogoutCircleRLine className="cursor-pointer hover:text-red-500 text-2xl duration-300 transition-all ease-in-out" />
+            </span>
           </div>
         ) : (
           <div className="flex items-center gap-5">

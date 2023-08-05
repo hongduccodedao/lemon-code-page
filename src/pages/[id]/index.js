@@ -6,24 +6,50 @@ import icons from "@/utils/icons";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { paths } from "@/utils/paths";
-import { apiGetPostByUserId } from "@/apis";
+import { apiGetUserById } from "@/apis";
 import { useQuery } from "@tanstack/react-query";
 import { PostCard } from "@/components/postCard";
 import { Loading } from "@/components/loadings";
+import axios from "axios";
 
 const { RiCake2Line, RiMailLine, RiSettingsLine, RiFileList3Line } = icons;
-const Profile = () => {
+
+export async function getServerSideProps({ params }) {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${params.id}`,
+    );
+
+    const user = response.data;
+
+    return {
+      props: {
+        user,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return {
+      props: {
+        user: null,
+      },
+    };
+  }
+}
+
+const Profile = ({ user }) => {
   const router = useRouter();
   const { id } = router.query;
   const { current } = useSelector((state) => state.user);
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["posts", id],
-    queryFn: () => apiGetPostByUserId(id),
+    queryKey: ["user", id],
+    queryFn: () => apiGetUserById(id),
     enabled: !!id,
     refetchOnWindowFocus: false,
     cacheTime: 24 * 10 * 60 * 60 * 1000,
     staleTime: 24 * 5 * 60 * 60 * 1000,
+    initialData: user,
   });
 
   return (
@@ -42,7 +68,7 @@ const Profile = () => {
             <div className="flex flex-col gap-10">
               <div className="relative w-[250px] h-[250px]">
                 <Image
-                  src={current?.avatar}
+                  src={data?.data?.avatar}
                   layout="fill"
                   className="rounded-full object-cover border-4 border-gray-100 shadow-xl"
                 />
@@ -62,23 +88,23 @@ const Profile = () => {
                   </Link>
                 )}
                 <h1 className="font-bold text-5xl">
-                  {current?.firstName} {current?.lastName}
+                  {data?.data?.firstName} {data?.data?.lastName}
                 </h1>
                 <div className="flex items-center gap-10">
                   <span className="flex items-center gap-3">
                     <RiCake2Line className="inline-block text-2xl" />
                     <span className="">
-                      Joined on {new Date(current?.createdAt).toDateString()}
+                      Joined on {new Date(data?.data?.createdAt).toDateString()}
                     </span>
                   </span>
                   <span className="flex items-center gap-3">
                     <RiMailLine className="inline-block text-2xl" />
                     <span className="">
                       <a
-                        href={`mailto:${current?.email}`}
+                        href={`mailto:${data?.data?.email}`}
                         className="font-bold"
                       >
-                        {current?.email}
+                        {data?.data?.email}
                       </a>
                     </span>
                   </span>
