@@ -69,3 +69,25 @@ export const apiRegister = async ({ email, password, firstName, lastName }) => {
     console.log("🚀 ~ apiRegister ~ error", error);
   }
 };
+
+export const apiUpdateInfo = async ({ firstName, lastName }) => {
+  try {
+    const response = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/user`,
+      {
+        firstName,
+        lastName,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+    if (response.err === 0) {
+      return response;
+    } else {
+      return response.message;
+    }
+  } catch (error) {
+    console.log("🚀 ~ apiUpdateInfo ~ error", error);
+  }
+};

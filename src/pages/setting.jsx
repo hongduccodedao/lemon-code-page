@@ -1,14 +1,19 @@
 import React from "react";
 import { SEO } from "@/components/seo";
 import { LayoutMain } from "@/components/layouts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
 import { paths } from "@/utils/paths";
+import axios from "@/axios";
+import { toast } from "react-toastify";
+import { getCurrent } from "@/store/user/asyncActions";
+import * as apis from "@/apis";
 
 const Setting = () => {
+  const dispatch = useDispatch();
   const { current, isLogged } = useSelector((state) => state.user);
-
+  const [fileImage, setFileImage] = React.useState(null);
   const [avatar, setAvatar] = React.useState(current?.avatar);
   const [firstName, setFirstName] = React.useState(current?.firstName);
   const [lastName, setLastName] = React.useState(current?.lastName);
@@ -16,10 +21,46 @@ const Setting = () => {
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
+    setFileImage(file);
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setIsAvatarChanged(true);
       setAvatar(imageUrl);
+    }
+  };
+
+  const handleSaveAvatar = async () => {
+    const response = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/user`,
+      {
+        avatar: fileImage,
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
+    if (response.err === 0) {
+      toast.success("Update avatar successfully");
+      setIsAvatarChanged(false);
+      dispatch(getCurrent());
+    } else {
+      toast.error("Update avatar failed");
+    }
+  };
+
+  const handleSaveInfo = async () => {
+    const response = await apis.apiUpdateInfo({
+      firstName,
+      lastName,
+    });
+
+    if (response.err === 0) {
+      toast.success("Update information successfully");
+      dispatch(getCurrent());
+    } else {
+      toast.error("Update information failed");
     }
   };
 
@@ -46,6 +87,7 @@ const Setting = () => {
                   <div className="relative w-[250px] h-[250px]">
                     <Image
                       src={avatar}
+                      alt="avatar"
                       layout="fill"
                       className="rounded-full object-cover border-4 border-gray-100 shadow-lg"
                     />
@@ -85,6 +127,7 @@ const Setting = () => {
                       <button
                         type="button"
                         className="bg-green-100 p-2 rounded-md cursor-pointer text-sm border border-green-400 ml-2"
+                        onClick={() => handleSaveAvatar()}
                       >
                         Save
                       </button>
@@ -113,7 +156,10 @@ const Setting = () => {
                         onChange={(e) => setLastName(e.target.value)}
                       />
                     </div>
-                    <button className="bg-green-100 p-2 rounded-md cursor-pointer text-sm border border-green-400 inline-block">
+                    <button
+                      className="bg-green-100 p-2 rounded-md cursor-pointer text-sm border border-green-400 inline-block"
+                      onClick={() => handleSaveInfo()}
+                    >
                       Save
                     </button>
                   </div>
