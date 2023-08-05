@@ -1,15 +1,23 @@
 import { paths } from "@/utils/paths";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import icons from "@/utils/icons";
 import { Logo } from "../logo";
-import { useSelector } from "react-redux";
-import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrent } from "@/store/user/asyncActions";
 
 const { RiSearch2Line } = icons;
 
 const NavBar = () => {
+  const dispatch = useDispatch();
   const { isLogged, current } = useSelector((state) => state.user);
+  useEffect(() => {
+    const setTimeoutId = setTimeout(() => {
+      if (isLogged) dispatch(getCurrent());
+    }, 300);
+
+    return () => clearTimeout(setTimeoutId);
+  }, [dispatch, isLogged]);
 
   return (
     <div className="border-b border-gray-300 w-full bg-white">
@@ -35,14 +43,14 @@ const NavBar = () => {
               </button>
             </Link>
             <Link
-              href={`/${current._id}`}
-              title={current.firstName + " " + current.lastName}
+              href={`/${current?._id}`}
+              title={current?.firstName + " " + current?.lastName}
             >
               <div className="relative w-10 h-10">
-                <Image
+                <img
                   src={current?.avatar}
-                  layout="fill"
-                  className="rounded-full"
+                  alt="avatar"
+                  className="rounded-full object-cover object-center"
                 />
               </div>
             </Link>

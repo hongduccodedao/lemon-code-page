@@ -15,7 +15,6 @@ export const userSlice = createSlice({
     handleLoginRedux: (state, action) => {
       state.isLogged = action.payload.isLogged;
       state.token = action.payload.token;
-      state.current = action.payload.current;
     },
     handleLogoutRedux: (state) => {
       state.isLogged = false;
@@ -37,7 +36,6 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.current = null;
         state.isLogin = false;
-        state.token = null;
       });
   },
 });

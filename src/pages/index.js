@@ -26,8 +26,6 @@ export default function Home() {
     staleTime: 24 * 5 * 60 * 60 * 1000, // 1/2 day
   });
 
-  console.log(data);
-
   return (
     <>
       <SEO title="Home" description="Lemon Code" />

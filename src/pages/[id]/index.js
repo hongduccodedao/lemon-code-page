@@ -50,7 +50,7 @@ const Profile = () => {
               <div className="bg-white rounded-xl p-5 shadow-lg">
                 <div className="flex items-center gap-2">
                   <RiFileList3Line className="inline-block text-2xl" />
-                  <span className="">{data?.length} posts published</span>
+                  <span className="">{data?.length || 0} posts published</span>
                 </div>
               </div>
             </div>

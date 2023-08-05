@@ -6,8 +6,15 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   function (config) {
-    config.withCredentials = true;
-    return config;
+    let localStorageData = window.localStorage.getItem("persist:lemon/user");
+    if (localStorageData && typeof localStorageData === "string") {
+      localStorageData = JSON.parse(localStorageData);
+      const accessToken = JSON.parse(localStorageData.token);
+      config.headers.Authorization = `Bearer ${accessToken}`;
+      return config;
+    } else {
+      return config;
+    }
   },
   function (error) {
     return Promise.reject(error);

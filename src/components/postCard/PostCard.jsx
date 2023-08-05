@@ -26,7 +26,7 @@ const PostCard = ({ post }) => {
         <div className="flex items-center gap-3">
           <div className="relative w-8 h-8">
             <Image
-              src={post.user.avatar}
+              src={post.user?.avatar}
               alt="avatar"
               layout="fill"
               className="rounded-full object-cover object-center"
@@ -35,10 +35,10 @@ const PostCard = ({ post }) => {
           <div className="flex flex-col">
             <Link
               className="text-sm"
-              href={`/${post.user._id}`}
-              title={`${post.user.firstName} ${post.user.lastName}`}
+              href={`/${post.user?._id}`}
+              title={`${post.user?.firstName} ${post.user?.lastName}`}
             >
-              {post.user.firstName} {post.user.lastName}
+              {post.user?.firstName} {post.user?.lastName}
             </Link>
             <span className="text-xs text-gray-500">
               {moment(post.createdAt).fromNow()}
