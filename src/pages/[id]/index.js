@@ -54,7 +54,10 @@ const Profile = ({ user }) => {
 
   return (
     <>
-      <SEO title={`${current.firstName} ${current.lastName}`} />
+      <SEO
+        title={`${data?.data?.firstName} ${data?.data?.lastName}`}
+        image={data?.data?.avatar}
+      />
       <main>
         <LayoutMain>
           {isLoading ||
