@@ -18,10 +18,13 @@ const {
 } = icons;
 
 export async function getServerSideProps({ params }) {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/post/${params.slug}`,
-  );
-  const postData = response.data.data;
+  const response = await fetch(`
+    ${process.env.NEXT_PUBLIC_API_URL}/post/${params.slug}
+  `)
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+
+  const postData = response.data;
   return {
     props: {
       post: postData,
