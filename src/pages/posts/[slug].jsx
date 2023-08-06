@@ -9,15 +9,29 @@ import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { SEO } from "@/components/seo";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 export async function getServerSideProps({ params }) {
-  const post = await apiGetPostBySlug(params.slug);
-  console.log(post);
-  return {
-    props: {
-      post,
-    },
-  };
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/post/${params.slug}`,
+    );
+
+    const post = response.data;
+
+    return {
+      props: {
+        post,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching post data:", error);
+    return {
+      props: {
+        post: null,
+      },
+    };
+  }
 }
 
 const PostDetailPage = ({ post }) => {
@@ -40,7 +54,7 @@ const PostDetailPage = ({ post }) => {
         <LayoutMain>
           <div className="max-w-[1200px] mx-auto mt-5 flex gap-2">
             <div className="flex bg-red-50">like</div>
-            <div className="bg-white rounded-lg flex-6">
+            <div className="bg-ctp-surface0 rounded-lg flex-6">
               {data?.image && (
                 <div className="relative w-full h-72">
                   <Image
@@ -52,22 +66,6 @@ const PostDetailPage = ({ post }) => {
                 </div>
               )}
               <div className="px-6 py-4">
-                <div className="flex items-center gap-3">
-                  <div className="relative w-8 h-8">
-                    <Image
-                      src={data?.avatar}
-                      alt="avatar"
-                      layout="fill"
-                      className="rounded-full object-cover object-center"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-sm">{data?.author}</span>
-                    <span className="text-xs text-gray-500">
-                      {data?.created_at}
-                    </span>
-                  </div>
-                </div>
                 <h1 className="text-6xl font-bold my-3">{data?.title}</h1>
                 <div className="flex items-center gap-3 mt-2">
                   {data?.tags?.map((tag) => (

@@ -23,7 +23,7 @@ const Post = ({ uid }) => {
             {isError && <p>{error.message}</p>}
           </div>
         ))}
-      <div className="bg-white rounded-xl p-5 shadow-lg w-[250px] max-h-20">
+      <div className="bg-ctp-surface0 rounded-xl p-5 shadow-lg w-[250px] max-h-20">
         <div className="inline-flex items-center gap-2">
           <RiFileList3Line className="inline-block text-2xl" />
           <span className="">{data?.length || 0} posts published</span>

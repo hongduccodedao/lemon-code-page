@@ -100,7 +100,7 @@ const create = () => {
     <>
       <SEO title="Create" description="Create a new post" />
       <main>
-        <div className="p-5 border border-gray-300 bg-white">
+        <div className="p-5 border-b border-ctp-overlay0 bg-ctp-surface0">
           <div className="max-w-[1200px] mx-auto">
             <Logo />
           </div>
@@ -110,7 +110,7 @@ const create = () => {
             <div>
               <span className="">
                 Please{" "}
-                <Link href={paths.LOGIN} className="text-green-500">
+                <Link href={paths.LOGIN} className="text-ctp-green">
                   Login
                 </Link>{" "}
                 to create a post.
@@ -118,7 +118,7 @@ const create = () => {
             </div>
           ) : (
             <>
-              <div className="bg-white p-10 rounded-xl shadow-md">
+              <div className="bg-ctp-surface0 p-10 rounded-xl shadow-md">
                 <div className="flex items-center gap-10">
                   {isImageUploaded && (
                     <div className="relative max-w-[500px]">
@@ -136,7 +136,7 @@ const create = () => {
                   <div className="flex items-center gap-2">
                     <label
                       htmlFor="file-upload"
-                      className="cursor-pointer inline-block px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500 hover:text-white transition duration-300 ease-in-out"
+                      className="cursor-pointer inline-block px-4 py-2 rounded-md border border-ctp-green text-ctp-green hover:bg-ctp-green hover:text-white transition duration-300 ease-in-out"
                     >
                       {isImageUploaded ? "Change Image" : "Add a cover image"}
                     </label>
@@ -158,7 +158,7 @@ const create = () => {
                 </div>
                 <input
                   type="text"
-                  className="my-4 w-full outline-none text-6xl placeholder:text-gray-600 font-bold"
+                  className="my-4 w-full outline-none text-6xl placeholder:text-gray-600 font-bold bg-transparent"
                   placeholder="New post title here..."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
@@ -168,7 +168,7 @@ const create = () => {
                   onChange={setTags}
                   name="tags"
                   placeHolder="Add tags..."
-                  className="w-full my-2"
+                  className="w-full my-2 bg-transparent"
                 />
                 <small className="py-2">
                   <span className="text-gray-400">Note:</span> Press{" "}
@@ -176,7 +176,7 @@ const create = () => {
                 </small>
                 <Editor value={editorValue} onChange={handleEditorChange} />
                 <button
-                  className="cursor-pointer inline-block px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600 transition-all duration-300 ease-in-out mt-5"
+                  className="cursor-pointer inline-block px-4 py-2 rounded-md bg-ctp-green text-white hover:bg-green-600 transition-all duration-300 ease-in-out mt-5"
                   onClick={handlePublic}
                 >
                   Public

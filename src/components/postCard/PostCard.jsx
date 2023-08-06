@@ -7,9 +7,8 @@ const { RiBookmarkLine, RiHeartAddLine, RiChat1Line } = icons;
 
 const PostCard = ({ post }) => {
   return (
-    <Link
-      href={`/posts/${post.slug}`}
-      className="flex-auto w-full bg-white rounded-lg cursor-pointer shadow-md"
+    <div
+      className="flex-auto w-full bg-ctp-surface0 rounded-lg cursor-pointer shadow-md"
       title={post.title}
     >
       {post.image && (
@@ -40,19 +39,22 @@ const PostCard = ({ post }) => {
             >
               {post.user?.firstName} {post.user?.lastName}
             </Link>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-ctp-subtext0">
               {moment(post.createdAt).fromNow()}
             </span>
           </div>
         </div>
         <div className="py-3 px-10">
-          <h2 className="text-4xl font-bold text-gray-950 hover:text-green-500">
+          <Link
+            className="text-4xl font-bold hover:text-ctp-green"
+            href={`/posts/${post.slug}`}
+          >
             {post.title}
-          </h2>
+          </Link>
           <div className="flex items-center gap-3 mt-2">
             {post.tags.map((tag) => (
               <span
-                className="text-sm text-gray-500 hover:bg-gray-100 p-1 rounded-md"
+                className="text-sm text-ctp-subtext0 hover:bg-ctp-surface1 p-1 rounded-md"
                 key={tag}
                 title={tag}
               >
@@ -62,12 +64,12 @@ const PostCard = ({ post }) => {
           </div>
           <div className="flex items-center gap-10 mt-2 text-sm justify-between">
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-2 hover:bg-gray-100 px-3 py-1 rounded-xl">
-                <RiHeartAddLine className="text-xl" />
+              <div className="flex items-center gap-2 bg-ctp-surface2 px-3 py-1 rounded-xl">
+                <RiHeartAddLine className="text-xl text-ctp-red" />
                 <span className="">{post.likes} likes</span>
               </div>
-              <div className="flex items-center gap-2 hover:bg-gray-100 px-3 py-1 rounded-xl">
-                <RiChat1Line className="text-xl" />
+              <div className="flex items-center gap-2 bg-ctp-surface2 px-3 py-1 rounded-xl">
+                <RiChat1Line className="text-xl text-ctp-blue" />
                 <span className="">{post.comments} comments</span>
               </div>
             </div>
@@ -77,7 +79,7 @@ const PostCard = ({ post }) => {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

@@ -22,17 +22,17 @@ const NavBar = () => {
   }, [dispatch, isLogged]);
 
   return (
-    <div className="border-b border-gray-300 w-full bg-white">
+    <div className="border-b border-ctp-overlay0 w-full bg-ctp-base">
       <div className="flex items-center justify-between max-w-[1200px] w-full mx-auto py-5">
         <div className="flex items-center gap-10">
           <Logo />
-          <div className="flex items-center border border-gray-300 rounded-md h-10">
+          <div className="flex items-center border border-ctp-overlay0 rounded-md h-10">
             <input
               type="text"
-              className="h-full rounded-l-md outline-none px-3"
+              className="h-full rounded-l-md outline-none px-3 bg-ctp-overlay0"
               placeholder="Search..."
             />
-            <button className="hover:bg-green-100 p-2 h-full rounded-md">
+            <button className="hover:bg-ctp-green hover:text-ctp-crust p-2 h-full rounded-r-md">
               <RiSearch2Line />
             </button>
           </div>
@@ -40,7 +40,7 @@ const NavBar = () => {
         {isLogged ? (
           <div className="flex items-center gap-5">
             <Link href={paths.CREATE}>
-              <button className="h-10 px-5 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500 hover:text-white duration-300 transition-all ease-in-out">
+              <button className="h-10 px-5 py-2 rounded-md border border-ctp-green text-ctp-green bg-ctp-green bg-opacity-10 hover:bg-opacity-100 hover:text-white duration-300 transition-all ease-in-out">
                 Create Post
               </button>
             </Link>
@@ -59,14 +59,14 @@ const NavBar = () => {
               </div>
             </Link>
             <span onClick={() => dispatch(handleLogoutRedux())}>
-              <RiLogoutCircleRLine className="cursor-pointer hover:text-red-500 text-2xl duration-300 transition-all ease-in-out" />
+              <RiLogoutCircleRLine className="cursor-pointer hover:text-ctp-red text-2xl duration-300 transition-all ease-in-out" />
             </span>
           </div>
         ) : (
           <div className="flex items-center gap-5">
             <Link href={paths.LOGIN}>Login</Link>
             <Link href={paths.REGISTER}>
-              <button className="h-10 px-5 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500 hover:text-white duration-300 transition-all ease-in-out">
+              <button className="h-10 px-5 py-2 rounded-md border border-ctp-green text-ctp-green bg-ctp-green bg-opacity-10 hover:bg-opacity-100 hover:text-white duration-300 transition-all ease-in-out">
                 Create Account
               </button>
             </Link>

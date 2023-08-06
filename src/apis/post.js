@@ -83,8 +83,9 @@ export const apiLikePost = async ({ postId, quantity }) => {
         withCredentials: true,
       },
     );
+    console.log(response);
     if (response.err === 0) {
-      return response.data;
+      return response;
     }
     return {};
   } catch (error) {

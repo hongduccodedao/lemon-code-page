@@ -88,7 +88,7 @@ const login = () => {
                   </Link>{" "}
                   or{" "}
                   <span
-                    className="text-red-500 font-semibold cursor-pointer"
+                    className="text-ctp-red font-semibold cursor-pointer"
                     onClick={() => {
                       dispatch(handleLogoutRedux());
                     }}
@@ -100,7 +100,7 @@ const login = () => {
               </div>
             ) : (
               <>
-                <div className="bg-white inline-block p-5 rounded-lg shadow-md min-w-[600px] mt-10">
+                <div className="bg-ctp-surface0 inline-block p-5 rounded-lg shadow-md min-w-[600px] mt-10">
                   <h1 className="font-semibold mb-5 text-2xl text-center">
                     Welcome to Lemon Code
                   </h1>
@@ -119,7 +119,7 @@ const login = () => {
                     </button>
                   </div>
                   <div className="relative after:absolute after:w-full after:h-0.5 after:bg-gray-300 after:top-1/2 after:left-0 after:rounded-md my-5">
-                    <span className="text-xs bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-gray-500">
+                    <span className="text-xs bg-ctp-surface0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-ctp-subtext0">
                       Have a password? Continue with your email address
                     </span>
                   </div>
@@ -128,11 +128,11 @@ const login = () => {
                     <div>
                       <label
                         htmlFor="email"
-                        className="text-gray-600 text-sm mb-4"
+                        className="text-ctp-subtext1 text-sm mb-4"
                       >
-                        Email address <span className="text-red-500">*</span>
+                        Email address <span className="text-ctp-red">*</span>
                       </label>
-                      <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
+                      <div className="flex items-center border border-ctp-surface2 rounded-md px-3 py-2 gap-3">
                         <RiMailFill className="text-2xl" />
                         <input
                           type="email"
@@ -140,30 +140,32 @@ const login = () => {
                           id="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full outline-none"
+                          className="w-full outline-none bg-transparent"
+                          placeholder="Email address"
                         />
                       </div>
                     </div>
                     <div>
                       <label
                         htmlFor="password"
-                        className="text-gray-600 text-sm mb-4"
+                        className="text-ctp-subtext1 text-sm mb-4"
                       >
-                        Password <span className="text-red-500">*</span>
+                        Password <span className="text-ctp-red">*</span>
                       </label>
-                      <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 gap-3">
+                      <div className="flex items-center border border-ctp-surface2 rounded-md px-3 py-2 gap-3">
                         <RiLock2Fill className="text-2xl" />
                         <input
                           type={showPassword ? "text" : "password"}
                           name="password"
                           id="password"
-                          className="w-full outline-none"
+                          className="w-full outline-none bg-transparent "
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
+                          placeholder="Password"
                         />
                         <button
                           type="button"
-                          className="text-gray-500 outline-none focus:outline-none"
+                          className="text-ctp-subtext0 outline-none focus:outline-none"
                           onClick={() => setShowPassword(!showPassword)}
                         >
                           {showPassword ? (
@@ -180,16 +182,16 @@ const login = () => {
                             type="checkbox"
                             name="remember"
                             id="remember"
-                            className="border border-gray-300 rounded-md px-3 py-2"
+                            className="border border-ctp-surface2 rounded-md px-3 py-2"
                           />
                           <label
                             htmlFor="remember"
-                            className="text-gray-600 text-sm"
+                            className="text-ctp-subtext1 text-sm"
                           >
                             Remember me
                           </label>
                         </div>
-                        <a href="#" className="text-red-500 text-sm">
+                        <a href="#" className="text-ctp-red text-sm">
                           Forgot password?
                         </a>
                       </div>
@@ -202,7 +204,7 @@ const login = () => {
                     </button>
 
                     <div className="relative after:absolute after:w-full after:h-0.5 after:bg-gray-300 after:top-1/2 after:left-0 after:rounded-md my-5">
-                      <span className="text-xs bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-gray-500">
+                      <span className="text-xs bg-ctp-surface0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-ctp-subtext0">
                         Don&apos;t have an account?{" "}
                         <Link
                           href={paths.REGISTER}

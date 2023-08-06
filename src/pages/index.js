@@ -41,14 +41,14 @@ export default function Home() {
               ))}
             <div className="w-[200px]">
               <h2 className="text-2xl font-bold">Tags</h2>
-              <div className="w-full h-0.5 bg-gray-300 my-4"></div>
+              <div className="w-full h-0.5 bg-ctp-overlay1 my-4"></div>
               <div className="flex flex-col gap-2">
                 {data?.tagsData?.length > 0 ? (
                   <>
                     {data?.tagsData?.map((tag) => (
                       <div
                         key={tag}
-                        className="hover:bg-green-200 p-2 rounded-lg hover:underline cursor-pointer"
+                        className="hover:bg-ctp-green hover:text-ctp-base p-2 rounded-lg hover:underline cursor-pointer"
                       >
                         <p>#{tag}</p>
                       </div>

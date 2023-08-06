@@ -4,12 +4,13 @@
 
 @layer base {
   body {
-    @apply bg-gray-100;
+    @apply bg-ctp-crust text-ctp-text;
   }
 }
 
 @layer components {
 }
+
 .rti--container {
   border: 0 !important;
   --rti-main: 0 !important;

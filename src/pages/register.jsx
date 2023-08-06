@@ -73,7 +73,7 @@ const register = () => {
                   You are already logged in. Go to{" "}
                   <Link
                     href={paths.HOME}
-                    className="text-green-500 font-semibold"
+                    className="text-ctp-green font-semibold"
                   >
                     Home
                   </Link>{" "}
@@ -91,7 +91,7 @@ const register = () => {
               </div>
             ) : (
               <>
-                <div className="bg-white inline-block p-5 rounded-lg shadow-md min-w-[600px] mt-10">
+                <div className="bg-ctp-surface0 inline-block p-5 rounded-lg shadow-md min-w-[600px] mt-10">
                   <h1 className="font-semibold mb-5 text-2xl text-center">
                     Welcome to Lemon Code
                   </h1>
@@ -104,7 +104,7 @@ const register = () => {
                     </button>
                   </div>
                   <div className="relative after:absolute after:w-full after:h-0.5 after:bg-gray-300 after:top-1/2 after:left-0 after:rounded-md my-5">
-                    <span className="text-xs bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-gray-500">
+                    <span className="text-xs bg-ctp-surface0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-ctp-subtext1">
                       Or create an account with email
                     </span>
                   </div>
@@ -114,7 +114,7 @@ const register = () => {
                       <div>
                         <label
                           htmlFor="firstName"
-                          className="text-gray-600 text-sm mb-4"
+                          className="text-ctp-subtext1 text-sm mb-4"
                         >
                           First Name <span className="text-red-500">*</span>
                         </label>
@@ -126,7 +126,7 @@ const register = () => {
                             id="firstName"
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
-                            className="w-full outline-none"
+                            className="w-full outline-none bg-transparent"
                             placeholder="First Name"
                           />
                         </div>
@@ -134,7 +134,7 @@ const register = () => {
                       <div>
                         <label
                           htmlFor="lastName"
-                          className="text-gray-600 text-sm mb-4"
+                          className="text-ctp-subtext1 text-sm mb-4"
                         >
                           Last Name <span className="text-red-500">*</span>
                         </label>
@@ -146,7 +146,7 @@ const register = () => {
                             id="lastName"
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
-                            className="w-full outline-none"
+                            className="w-full outline-none bg-transparent"
                             placeholder="Last Name"
                           />
                         </div>
@@ -155,7 +155,7 @@ const register = () => {
                     <div>
                       <label
                         htmlFor="email"
-                        className="text-gray-600 text-sm mb-4"
+                        className="text-ctp-subtext1 text-sm mb-4"
                       >
                         Email <span className="text-red-500">*</span>
                       </label>
@@ -167,7 +167,7 @@ const register = () => {
                           id="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full outline-none"
+                          className="w-full outline-none bg-transparent"
                           placeholder="Email address"
                         />
                       </div>
@@ -175,7 +175,7 @@ const register = () => {
                     <div>
                       <label
                         htmlFor="password"
-                        className="text-gray-600 text-sm mb-4"
+                        className="text-ctp-subtext1 text-sm mb-4"
                       >
                         Password <span className="text-red-500">*</span>
                       </label>
@@ -185,14 +185,14 @@ const register = () => {
                           type={showPassword ? "text" : "password"}
                           name="password"
                           id="password"
-                          className="w-full outline-none"
+                          className="w-full outline-none bg-transparent"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           placeholder="Password"
                         />
                         <button
                           type="button"
-                          className="text-gray-500 outline-none focus:outline-none"
+                          className="text-ctp-subtext1 outline-none focus:outline-none"
                           onClick={() => setShowPassword(!showPassword)}
                         >
                           {showPassword ? (
@@ -206,7 +206,7 @@ const register = () => {
                     <div>
                       <label
                         htmlFor="passwordConfirm"
-                        className="text-gray-600 text-sm mb-4"
+                        className="text-ctp-subtext1 text-sm mb-4"
                       >
                         Confirm Password <span className="text-red-500">*</span>
                       </label>
@@ -216,14 +216,14 @@ const register = () => {
                           type={showPasswordConfirm ? "text" : "password"}
                           name="passwordConfirm"
                           id="passwordConfirm"
-                          className="w-full outline-none"
+                          className="w-full outline-none bg-transparent"
                           value={passwordConfirm}
                           onChange={(e) => setPasswordConfirm(e.target.value)}
                           placeholder="Confirm Password"
                         />
                         <button
                           type="button"
-                          className="text-gray-500 outline-none focus:outline-none"
+                          className="text-ctp-subtext1 outline-none focus:outline-none"
                           onClick={() =>
                             setShowPasswordConfirm(!showPasswordConfirm)
                           }
@@ -244,11 +244,11 @@ const register = () => {
                     </button>
 
                     <div className="relative after:absolute after:w-full after:h-0.5 after:bg-gray-300 after:top-1/2 after:left-0 after:rounded-md my-5">
-                      <span className="text-xs bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-gray-500">
+                      <span className="text-xs bg-ctp-surface0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 whitespace-nowrap z-10 text-ctp-subtext1">
                         Already have an account?{" "}
                         <Link
                           href={paths.LOGIN}
-                          className="hover:text-green-500 hover:underline"
+                          className="hover:text-ctp-green hover:underline"
                         >
                           Login now
                         </Link>

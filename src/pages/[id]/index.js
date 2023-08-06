@@ -78,7 +78,7 @@ const Profile = ({ user }) => {
               </div>
             </div>
             <div className="flex-1 flex flex-col gap-10">
-              <div className="w-full h-[250px] bg-white rounded-xl p-8 flex justify-center flex-col gap-5 relative shadow-lg">
+              <div className="w-full h-[250px] bg-ctp-surface0 rounded-xl p-8 flex justify-center flex-col gap-5 relative shadow-lg">
                 {current?._id === id && (
                   <Link href={paths.SETTING} title="Setting">
                     <RiSettingsLine className="absolute top-10 right-10 cursor-pointer text-2xl hover:text-green-500" />
@@ -87,7 +87,7 @@ const Profile = ({ user }) => {
                 <h1 className="font-bold text-5xl">
                   {data?.data?.firstName} {data?.data?.lastName}
                 </h1>
-                <div className="flex items-center gap-10">
+                <div className="flex items-center gap-10 text-ctp-subtext0">
                   <span className="flex items-center gap-3">
                     <RiCake2Line className="inline-block text-2xl" />
                     <span className="">
