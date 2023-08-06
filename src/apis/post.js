@@ -71,3 +71,24 @@ export const apiGetPostByUserId = async (uid) => {
     return [];
   }
 };
+
+export const apiLikePost = async ({ postId, quantity }) => {
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/post/like/${postId}`,
+      {
+        quantity,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+    if (response.err === 0) {
+      return response.data;
+    }
+    return {};
+  } catch (error) {
+    console.log("🚀 ~ apiLikePost ~ error:", error);
+    return {};
+  }
+};
