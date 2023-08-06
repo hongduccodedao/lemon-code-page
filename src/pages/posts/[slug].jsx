@@ -35,30 +35,30 @@ export async function getServerSideProps({ params }) {
 }
 
 const PostDetailPage = ({ post }) => {
-  const router = useRouter();
-
-  const { data } = useQuery({
-    queryKey: ["post", router.query.slug],
-    queryFn: () => apiGetPostBySlug(router.query.slug),
-    initialData: post,
-  });
+  // const router = useRouter();
+  //
+  // const { data } = useQuery({
+  //   queryKey: ["post", router.query.slug],
+  //   queryFn: () => apiGetPostBySlug(router.query.slug),
+  //   initialData: post,
+  // });
 
   return (
     <>
       <SEO
-        title={`${data?.title}`}
-        description={data?.content}
-        image={data?.image}
+        title={`${post?.title}`}
+        description={post?.content}
+        image={post?.image}
       />
       <main>
         <LayoutMain>
           <div className="max-w-[1200px] mx-auto mt-5 flex gap-2">
             <div className="flex bg-red-50">like</div>
             <div className="bg-ctp-surface0 rounded-lg flex-6">
-              {data?.image && (
+              {post?.image && (
                 <div className="relative w-full h-72">
                   <Image
-                    src={data?.image}
+                    src={post?.image}
                     alt="thumbnail"
                     layout="fill"
                     className="rounded-t-lg object-cover object-center"
@@ -66,9 +66,9 @@ const PostDetailPage = ({ post }) => {
                 </div>
               )}
               <div className="px-6 py-4">
-                <h1 className="text-6xl font-bold my-3">{data?.title}</h1>
+                <h1 className="text-6xl font-bold my-3">{post?.title}</h1>
                 <div className="flex items-center gap-3 mt-2">
-                  {data?.tags?.map((tag) => (
+                  {post?.tags?.map((tag) => (
                     <span
                       className="text-sm text-gray-500 hover:bg-gray-100 p-1 rounded-md"
                       key={tag}
@@ -80,7 +80,7 @@ const PostDetailPage = ({ post }) => {
                 </div>
                 <div className="">
                   <ReactMarkdown
-                    children={data?.content}
+                    children={post?.content}
                     components={{
                       code({ node, inline, className, children, ...props }) {
                         const match = /language-(\w+)/.exec(className || "");
