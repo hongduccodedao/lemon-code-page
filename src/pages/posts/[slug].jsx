@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import { LayoutMain } from "@/components/layouts";
 import Image from "next/image";
 import React, { useState } from "react";
