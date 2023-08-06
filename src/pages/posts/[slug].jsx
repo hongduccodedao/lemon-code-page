@@ -31,6 +31,7 @@ export async function getServerSideProps({ params }) {
 
 const PostDetailPage = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [isShowMore, setIsShowMore] = useState(false);
 
   const handleLike = () => {
     setIsLiked(!isLiked);
@@ -95,36 +96,41 @@ const PostDetailPage = ({ post }) => {
                 <RiBookmarkLine className="text-2xl" />
               </div>
               <div className="flex flex-col gap-2 items-center cursor-pointer relative">
-                <RiMoreFill className="text-2xl" />
-                <div className="absolute top-0 w-[250px] bg-ctp-surface1 left-10 z-10 p-3 rounded-lg flex flex-col">
-                  <span
-                    className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
-                    onClick={() => copyLink()}
-                  >
-                    Copy link
-                  </span>
-                  <span
-                    className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
-                    onClick={() => shareToFacebook()}
-                  >
-                    Share to Facebook
-                  </span>
-                  <span
-                    className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
-                    onClick={() => shareToTwitter()}
-                  >
-                    Share to X
-                  </span>
-                  <span
-                    className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
-                    onClick={() => shareToLinkedin()}
-                  >
-                    Share to Linkedin
-                  </span>
-                  <span className="p-2 hover:bg-ctp-red rounded-md hover:text-ctp-base">
-                    Report
-                  </span>
-                </div>
+                <RiMoreFill
+                  className="text-2xl"
+                  onClick={() => setIsShowMore(!isShowMore)}
+                />
+                {isShowMore && (
+                  <div className="absolute top-0 w-[250px] bg-ctp-surface1 left-10 z-10 p-3 rounded-lg flex flex-col">
+                    <span
+                      className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
+                      onClick={() => copyLink()}
+                    >
+                      Copy link
+                    </span>
+                    <span
+                      className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
+                      onClick={() => shareToFacebook()}
+                    >
+                      Share to Facebook
+                    </span>
+                    <span
+                      className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
+                      onClick={() => shareToTwitter()}
+                    >
+                      Share to X
+                    </span>
+                    <span
+                      className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
+                      onClick={() => shareToLinkedin()}
+                    >
+                      Share to Linkedin
+                    </span>
+                    <span className="p-2 hover:bg-ctp-red rounded-md hover:text-ctp-base">
+                      Report
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
             <div className="bg-ctp-surface0 rounded-lg flex-6">
