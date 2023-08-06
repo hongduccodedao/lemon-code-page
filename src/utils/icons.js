@@ -16,6 +16,8 @@ import {
   RiMailLine,
   RiSearch2Line,
   RiSettingsLine,
+  RiMoreFill,
+  RiHeartAddFill,
 } from "react-icons/ri";
 
 const icons = {
@@ -36,6 +38,8 @@ const icons = {
   RiFileList3Line,
   RiArrowDropLeftLine,
   RiLogoutCircleRLine,
+  RiMoreFill,
+  RiHeartAddFill,
 };
 
 export default icons;
