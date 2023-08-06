@@ -8,9 +8,9 @@ import Link from "next/link";
 import { paths } from "@/utils/paths";
 import { apiGetUserById } from "@/apis";
 import { useQuery } from "@tanstack/react-query";
-import { PostCard } from "@/components/postCard";
 import { Loading } from "@/components/loadings";
 import axios from "axios";
+import { Post } from "@/components/profiles";
 
 const { RiCake2Line, RiMailLine, RiSettingsLine, RiFileList3Line } = icons;
 
@@ -76,12 +76,6 @@ const Profile = ({ user }) => {
                   className="rounded-full object-cover border-4 border-gray-100 shadow-xl"
                 />
               </div>
-              <div className="bg-white rounded-xl p-5 shadow-lg">
-                <div className="flex items-center gap-2">
-                  <RiFileList3Line className="inline-block text-2xl" />
-                  <span className="">{data?.length || 0} posts published</span>
-                </div>
-              </div>
             </div>
             <div className="flex-1 flex flex-col gap-10">
               <div className="w-full h-[250px] bg-white rounded-xl p-8 flex justify-center flex-col gap-5 relative shadow-lg">
@@ -113,17 +107,9 @@ const Profile = ({ user }) => {
                   </span>
                 </div>
               </div>
-              <div className="flex flex-col gap-3">
-                {data?.length > 0 ? (
-                  data?.map((post) => <PostCard key={post._id} post={post} />)
-                ) : (
-                  <div className="w-full h-[200px] flex items-center justify-center">
-                    <p>No post published</p>
-                  </div>
-                )}
-              </div>
             </div>
           </div>
+          <Post uid={id} />
         </LayoutMain>
       </main>
     </>
