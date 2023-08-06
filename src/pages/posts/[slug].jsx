@@ -1,15 +1,20 @@
-/* eslint-disable react/no-children-prop */
-import { apiGetPostBySlug } from "@/apis/post";
 import { LayoutMain } from "@/components/layouts";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { SEO } from "@/components/seo";
-import { useRouter } from "next/router";
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import icons from "@/utils/icons";
+
+const {
+  RiBookmarkLine,
+  RiHeartAddLine,
+  RiChat1Line,
+  RiMoreFill,
+  RiHeartAddFill,
+} = icons;
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get(
@@ -24,14 +29,39 @@ export async function getServerSideProps({ params }) {
 }
 
 const PostDetailPage = ({ post }) => {
-  // const router = useRouter();
-  //
-  // const { data } = useQuery({
-  //   queryKey: ["post", router.query.slug],
-  //   queryFn: () => apiGetPostBySlug(router.query.slug),
-  //   initialData: post,
-  // });
-  console.log(post);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+  };
+
+  const shareToFacebook = () => {
+    window.open(
+      `https://www.facebook.com/sharer.php?u=${window.location.href}`,
+      "facebook-share-dialog",
+      "width=800,height=600",
+    );
+  };
+
+  const shareToTwitter = () => {
+    window.open(
+      `https://twitter.com/intent/tweet?text=${window.location.href}`,
+      "twitter-share-dialog",
+      "width=800,height=600",
+    );
+  };
+
+  const shareToLinkedin = () => {
+    window.open(
+      `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`,
+      "linkedin-share-dialog",
+      "width=800,height=600",
+    );
+  };
 
   return (
     <>
@@ -42,8 +72,57 @@ const PostDetailPage = ({ post }) => {
       />
       <main>
         <LayoutMain>
-          <div className="max-w-[1200px] mx-auto mt-5 flex gap-2">
-            <div className="flex bg-red-50">like</div>
+          <div className="max-w-[1200px] mx-auto mt-5 flex gap-5">
+            <div className="flex flex-col gap-7 mt-10">
+              <div
+                className="flex flex-col gap-2 items-center cursor-pointer select-none"
+                title={isLiked ? "Liked" : "Like"}
+                onClick={() => handleLike()}
+              >
+                {isLiked ? (
+                  <RiHeartAddFill className="text-2xl text-ctp-red" />
+                ) : (
+                  <RiHeartAddLine className="text-2xl hover:text-ctp-red" />
+                )}
+                <span className="text-ctp-subtext0">{post?.likes}</span>
+              </div>
+              <div className="flex flex-col gap-2 items-center cursor-pointer">
+                <RiChat1Line className="text-2xl" />
+                <span className="text-ctp-subtext0">{post?.comments}</span>
+              </div>
+              <div className="flex flex-col gap-2 items-center cursor-pointer">
+                <RiBookmarkLine className="text-2xl" />
+              </div>
+              <div className="flex flex-col gap-2 items-center cursor-pointer relative">
+                <RiMoreFill className="text-2xl" />
+                <div className="absolute top-0 w-[250px] bg-ctp-surface1 left-10 z-10 p-3 rounded-lg flex flex-col">
+                  <span className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base">
+                    Copy link
+                  </span>
+                  <span
+                    className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
+                    onClick={() => shareToFacebook()}
+                  >
+                    Share to Facebook
+                  </span>
+                  <span
+                    className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
+                    onClick={() => shareToTwitter()}
+                  >
+                    Share to X
+                  </span>
+                  <span
+                    className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
+                    onClick={() => shareToLinkedin()}
+                  >
+                    Share to Linkedin
+                  </span>
+                  <span className="p-2 hover:bg-ctp-red rounded-md hover:text-ctp-base">
+                    Report
+                  </span>
+                </div>
+              </div>
+            </div>
             <div className="bg-ctp-surface0 rounded-lg flex-6">
               {post?.image && (
                 <div className="relative w-full h-72">
