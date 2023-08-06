@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import { LayoutMain } from "@/components/layouts";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -96,7 +97,10 @@ const PostDetailPage = ({ post }) => {
               <div className="flex flex-col gap-2 items-center cursor-pointer relative">
                 <RiMoreFill className="text-2xl" />
                 <div className="absolute top-0 w-[250px] bg-ctp-surface1 left-10 z-10 p-3 rounded-lg flex flex-col">
-                  <span className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base">
+                  <span
+                    className="p-2 hover:bg-ctp-green rounded-md hover:text-ctp-base"
+                    onClick={() => copyLink()}
+                  >
                     Copy link
                   </span>
                   <span
