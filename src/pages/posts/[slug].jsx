@@ -12,26 +12,15 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 export async function getServerSideProps({ params }) {
-  try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/post/${params.slug}`,
-    );
-
-    const post = response.data;
-
-    return {
-      props: {
-        post,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching post data:", error);
-    return {
-      props: {
-        post: null,
-      },
-    };
-  }
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/post/${params.slug}`,
+  );
+  const postData = response.data.data;
+  return {
+    props: {
+      post: postData,
+    },
+  };
 }
 
 const PostDetailPage = ({ post }) => {
@@ -42,6 +31,7 @@ const PostDetailPage = ({ post }) => {
   //   queryFn: () => apiGetPostBySlug(router.query.slug),
   //   initialData: post,
   // });
+  console.log(post);
 
   return (
     <>
