@@ -4,6 +4,7 @@ import { PostCard } from "@/components/postCard";
 import { SEO } from "@/components/seo";
 import { useQuery } from "@tanstack/react-query";
 import { apiGetAllTags, apiGetPosts } from "@/apis";
+import Head from "next/head";
 
 export default function Home() {
   const { data, isLoading, isError, error } = useQuery({
@@ -28,7 +29,11 @@ export default function Home() {
 
   return (
     <>
-      <SEO title="Home" description="Lemon Code" />
+      <Head>
+        <title>CTP - Home</title>
+        <meta name="description" content="CTP - Home" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <main>
         <LayoutMain>
           <div className="flex gap-10 max-w-[1200px] mx-auto my-10">
