@@ -19,21 +19,33 @@ const {
   RiHeartAddFill,
 } = icons;
 
-export async function getServerSideProps({ params }) {
-  const response = await fetch(`
-    ${process.env.NEXT_PUBLIC_API_URL}/post/${params.slug}
-  `)
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
+export const getStaticPaths = async () => {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/post/getAll`,
+  );
+  const posts = response.data.data;
+  const paths = posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
 
-  const postData = response.data;
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async ({ params }) => {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/post/${params.slug}`,
+  );
+  const post = response.data.data;
+
   return {
     props: {
-      post: postData,
+      post,
     },
   };
-}
-
+};
 const PostDetailPage = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isShowMore, setIsShowMore] = useState(false);
